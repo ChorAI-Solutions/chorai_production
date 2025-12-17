@@ -18,12 +18,19 @@ if [ -z "$ACME_EMAIL" ]; then
   exit 1
 fi
 
+ROOT_DOMAIN=${SITE_DOMAIN#www.}
+
 cat <<EOF >/etc/caddy/Caddyfile
 {
     email ${ACME_EMAIL}
 }
 
-https://${SITE_DOMAIN} {
+https://${ROOT_DOMAIN} {
+    encode gzip
+    reverse_proxy web:3000
+}
+
+https://www.${ROOT_DOMAIN} {
     encode gzip
     reverse_proxy web:3000
 }
