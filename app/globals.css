@@ -133,3 +133,42 @@ select:-moz-autofill {
 .cursor-blink {
   animation: blink 1s infinite;
 }
+
+/* ---- Consent checkbox animation (hand-drawn style) ---- */
+.chorai-consent-circle {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+}
+
+.chorai-consent-circle--checked {
+  animation: choraiDrawCircle 280ms ease-out forwards;
+}
+
+.chorai-consent-check {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+}
+
+.chorai-consent-check--checked {
+  animation: choraiDrawCheck 320ms ease-out 120ms forwards;
+}
+
+@keyframes choraiDrawCircle {
+  from {
+    stroke-dashoffset: 80;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes choraiDrawCheck {
+  from {
+    stroke-dashoffset: 30;
+    opacity: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}

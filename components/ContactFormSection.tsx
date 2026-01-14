@@ -26,6 +26,18 @@ type ContactFormData = {
   honeypot: string;
 };
 
+type TouchedFields = {
+  name: boolean;
+  email: boolean;
+  company: boolean;
+  roleInCompany: boolean;
+  companySize: boolean;
+  phoneCountryCode: boolean;
+  phoneNumber: boolean;
+  monthlyBudget: boolean;
+  projectDescription: boolean;
+};
+
 const createInitialFormData = (): ContactFormData => ({
   name: "",
   email: "",
@@ -61,11 +73,58 @@ type ContactFormSectionProps = {
   submitLabel: string;
 };
 
+const getFieldError = (field: keyof ContactFormData, formData: ContactFormData): string => {
+  switch (field) {
+    case "name":
+      return !isNonEmptyString(formData.name) ? "Dieses Feld ist erforderlich." : "";
+    case "email":
+      if (!isNonEmptyString(formData.email)) return "Dieses Feld ist erforderlich.";
+      if (!isValidEmail(formData.email)) return "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+      return "";
+    case "company":
+      return !isNonEmptyString(formData.company) ? "Dieses Feld ist erforderlich." : "";
+    case "roleInCompany":
+      return !isNonEmptyString(formData.roleInCompany) ? "Dieses Feld ist erforderlich." : "";
+    case "companySize":
+      return formData.companySize === "" ? "Bitte wählen Sie eine Option aus." : "";
+    case "monthlyBudget":
+      return formData.monthlyBudget === "" ? "Bitte wählen Sie eine Option aus." : "";
+    case "projectDescription":
+      return !isNonEmptyString(formData.projectDescription) ? "Dieses Feld ist erforderlich." : "";
+    case "phoneNumber":
+      if (isNonEmptyString(formData.phoneNumber)) {
+        if (!isValidPhoneNumber(formData.phoneNumber)) {
+          return "Bitte geben Sie eine gültige Telefonnummer ein (6-15 Ziffern).";
+        }
+        if (!isValidCountryCode(formData.phoneCountryCode)) {
+          return "Bitte geben Sie einen gültigen Ländercode ein.";
+        }
+      }
+      return "";
+    default:
+      return "";
+  }
+};
+
 export default function ContactFormSection({ title, subtitle, submitLabel }: ContactFormSectionProps) {
   const [formData, setFormData] = useState<ContactFormData>(createInitialFormData());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consent, setConsent] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ type: null, message: "" });
+  const [touched, setTouched] = useState<TouchedFields>({
+    name: false,
+    email: false,
+    company: false,
+    roleInCompany: false,
+    companySize: false,
+    phoneCountryCode: false,
+    phoneNumber: false,
+    monthlyBudget: false,
+    projectDescription: false,
+  });
+  const [consentTouched, setConsentTouched] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const showConsentError = (consentTouched || submitAttempted) && !consent;
 
   const isFormValid = useMemo(() => {
     const hasPhoneNumber = isNonEmptyString(formData.phoneNumber);
@@ -85,10 +144,29 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
     );
   }, [formData]);
 
+  const handleBlur = (field: keyof TouchedFields) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitAttempted(true);
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
+
+    // Mark all fields as touched
+    setTouched({
+      name: true,
+      email: true,
+      company: true,
+      roleInCompany: true,
+      companySize: true,
+      phoneCountryCode: true,
+      phoneNumber: true,
+      monthlyBudget: true,
+      projectDescription: true,
+    });
+    setConsentTouched(true);
 
     if (!consent) {
       setSubmitStatus({ type: "error", message: "Bitte akzeptieren Sie die Datenschutzbestimmungen." });
@@ -123,6 +201,19 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
       });
       setFormData(createInitialFormData());
       setConsent(false);
+      setTouched({
+        name: false,
+        email: false,
+        company: false,
+        roleInCompany: false,
+        companySize: false,
+        phoneCountryCode: false,
+        phoneNumber: false,
+        monthlyBudget: false,
+        projectDescription: false,
+      });
+      setConsentTouched(false);
+      setSubmitAttempted(false);
     } catch (error) {
       setSubmitStatus({
         type: "error",
@@ -172,8 +263,16 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   value={formData.name}
                   placeholder="Max Muster"
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("name")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.name || submitAttempted) && getFieldError("name", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 />
+                {(touched.name || submitAttempted) && getFieldError("name", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("name", formData)}</p>
+                )}
               </div>
 
               <div>
@@ -188,8 +287,16 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   value={formData.email}
                   placeholder="beispiel@gmail.com"
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("email")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.email || submitAttempted) && getFieldError("email", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 />
+                {(touched.email || submitAttempted) && getFieldError("email", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("email", formData)}</p>
+                )}
               </div>
 
               <div>
@@ -203,8 +310,16 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   value={formData.company}
                   placeholder="Name ihres Unternehmens"
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("company")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.company || submitAttempted) && getFieldError("company", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 />
+                {(touched.company || submitAttempted) && getFieldError("company", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("company", formData)}</p>
+                )}
               </div>
 
               <div>
@@ -218,8 +333,16 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   value={formData.roleInCompany}
                   placeholder="z.B. CTO, Projektmanager, etc."
                   onChange={(e) => setFormData({ ...formData, roleInCompany: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("roleInCompany")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.roleInCompany || submitAttempted) && getFieldError("roleInCompany", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 />
+                {(touched.roleInCompany || submitAttempted) && getFieldError("roleInCompany", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("roleInCompany", formData)}</p>
+                )}
               </div>
 
               <div>
@@ -232,10 +355,15 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   disabled={isSubmitting}
                   value={formData.companySize}
                   onChange={(e) => setFormData({ ...formData, companySize: e.target.value as ContactFormData["companySize"] })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("companySize")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.companySize || submitAttempted) && getFieldError("companySize", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 >
                   <option value="" disabled>
-                    Please Select
+                    Bitte auswählen
                   </option>
                   {CompanySizeOptions.map((companySizeOption) => (
                     <option key={companySizeOption} value={companySizeOption}>
@@ -243,6 +371,9 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                     </option>
                   ))}
                 </select>
+                {(touched.companySize || submitAttempted) && getFieldError("companySize", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("companySize", formData)}</p>
+                )}
               </div>
 
               <div>
@@ -255,9 +386,21 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                       value={formData.phoneCountryCode}
                       placeholder="49"
                       onChange={(e) => setFormData({ ...formData, phoneCountryCode: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                      onBlur={() => handleBlur("phoneCountryCode")}
+                      className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                        (touched.phoneCountryCode || submitAttempted) &&
+                        isNonEmptyString(formData.phoneNumber) &&
+                        !isValidCountryCode(formData.phoneCountryCode)
+                          ? "border-red-500/50"
+                          : "border-slate-800"
+                      }`}
                     />
-                    <p className="mt-1 text-xs text-slate-400/80">Area Code</p>
+                    <p className="mt-1 text-xs text-slate-400/80">Ländercode</p>
+                    {(touched.phoneCountryCode || submitAttempted) &&
+                      isNonEmptyString(formData.phoneNumber) &&
+                      !isValidCountryCode(formData.phoneCountryCode) && (
+                        <p className="mt-1 text-xs text-red-400">Bitte geben Sie einen gültigen Ländercode ein.</p>
+                      )}
                   </div>
                   <div className="col-span-2">
                     <input
@@ -266,9 +409,17 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                       value={formData.phoneNumber}
                       placeholder="123456789"
                       onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                      onBlur={() => handleBlur("phoneNumber")}
+                      className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                        (touched.phoneNumber || submitAttempted) && getFieldError("phoneNumber", formData)
+                          ? "border-red-500/50"
+                          : "border-slate-800"
+                      }`}
                     />
-                    <p className="mt-1 text-xs text-slate-400/80">Phone Number</p>
+                    <p className="mt-1 text-xs text-slate-400/80">Telefonnummer</p>
+                    {(touched.phoneNumber || submitAttempted) && getFieldError("phoneNumber", formData) && (
+                      <p className="mt-1 text-xs text-red-400">{getFieldError("phoneNumber", formData)}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -283,10 +434,15 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   disabled={isSubmitting}
                   value={formData.monthlyBudget}
                   onChange={(e) => setFormData({ ...formData, monthlyBudget: e.target.value as ContactFormData["monthlyBudget"] })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("monthlyBudget")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.monthlyBudget || submitAttempted) && getFieldError("monthlyBudget", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 >
                   <option value="" disabled>
-                    Please Select
+                    Bitte auswählen
                   </option>
                   {MonthlyBudgetOptions.map((monthlyBudgetOption) => (
                     <option key={monthlyBudgetOption} value={monthlyBudgetOption}>
@@ -294,6 +450,9 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                     </option>
                   ))}
                 </select>
+                {(touched.monthlyBudget || submitAttempted) && getFieldError("monthlyBudget", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("monthlyBudget", formData)}</p>
+                )}
               </div>
 
               <div className="md:col-span-2">
@@ -308,8 +467,16 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
                   value={formData.projectDescription}
                   placeholder="Bitte geben Sie so viele Details wie möglich an. Somit können wir uns besser auf ein Erstgespräch vorbereiten."
                   onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
-                  className="w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 resize-none disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
+                  onBlur={() => handleBlur("projectDescription")}
+                  className={`w-full px-4 py-3 bg-slate-950/40 border rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60 focus:border-[#3b82f6]/40 resize-none disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5 ${
+                    (touched.projectDescription || submitAttempted) && getFieldError("projectDescription", formData)
+                      ? "border-red-500/50"
+                      : "border-slate-800"
+                  }`}
                 />
+                {(touched.projectDescription || submitAttempted) && getFieldError("projectDescription", formData) && (
+                  <p className="mt-1 text-sm text-red-400">{getFieldError("projectDescription", formData)}</p>
+                )}
               </div>
             </div>
 
@@ -326,23 +493,64 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
             </div>
 
             {/* DSGVO-Checkbox */}
-            <div className="flex items-start gap-3">
-              <input
-                id="consent"
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                disabled={isSubmitting}
-                className="mt-1 h-4 w-4 rounded border-slate-600 bg-slate-950/40 text-[#3b82f6] focus:ring-[#3b82f6] disabled:opacity-50 disabled:cursor-not-allowed ring-1 ring-white/5"
-              />
-              <label htmlFor="consent" className="text-sm text-slate-400 leading-5">
-                Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und für Rückfragen dauerhaft gespeichert werden. Ich habe
-                die{" "}
-                <a href="/datenschutz" className="text-[#3b82f6] hover:underline">
-                  Datenschutzerklärung
-                </a>{" "}
-                zur Kenntnis genommen.
-              </label>
+            <div>
+              <div className="flex items-start gap-3">
+                <label htmlFor="consent" className="flex items-start gap-3 cursor-pointer select-none">
+                  <span className="relative mt-1 inline-flex h-5 w-5 items-center justify-center">
+                    <input
+                      id="consent"
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => {
+                        setConsent(e.target.checked);
+                        setConsentTouched(true);
+                      }}
+                      onBlur={() => setConsentTouched(true)}
+                      disabled={isSubmitting}
+                      className="peer sr-only"
+                    />
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                        fill="transparent"
+                        stroke={consent ? "#22c55e" : showConsentError ? "#ef4444" : "rgba(148, 163, 184, 0.7)"}
+                        strokeWidth="2.5"
+                        className={consent ? "chorai-consent-circle chorai-consent-circle--checked" : ""}
+                      />
+                      <path
+                        d="M7 12.5l3.2 3.2L17.5 8.8"
+                        fill="none"
+                        stroke="#22c55e"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={consent ? "chorai-consent-check chorai-consent-check--checked" : "opacity-0"}
+                      />
+                    </svg>
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-1 rounded-full peer-focus-visible:ring-2 peer-focus-visible:ring-[#3b82f6]/60 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-slate-900"
+                    />
+                  </span>
+                  <span className="text-sm text-slate-400 leading-5">
+                  Ich stimme zu, dass meine Angaben zur Kontaktaufnahme und für Rückfragen dauerhaft gespeichert werden. Ich habe
+                  die{" "}
+                  <a href="/datenschutz" className="text-[#3b82f6] hover:underline">
+                    Datenschutzerklärung
+                  </a>{" "}
+                  zur Kenntnis genommen. *
+                  </span>
+                </label>
+              </div>
+              {showConsentError && (
+                <p className="mt-1 text-sm text-red-400 ml-7">Bitte akzeptieren Sie die Datenschutzerklärung.</p>
+              )}
             </div>
 
             {/* Status-Meldung */}
@@ -366,11 +574,15 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
             )}
 
             <motion.button
-              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+              whileHover={{ scale: isSubmitting || !consent || !isFormValid ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting || !consent || !isFormValid ? 1 : 0.98 }}
               type="submit"
               disabled={isSubmitting || !consent || !isFormValid}
-              className="w-full bg-[#3b82f6] text-white py-3 rounded-xl font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full py-3 rounded-xl font-semibold transition-colors shadow-lg ring-1 ring-white/5 ${
+                isSubmitting || !consent || !isFormValid
+                  ? "bg-slate-600 text-slate-400 cursor-not-allowed"
+                  : "bg-[#3b82f6] text-white hover:bg-[#2563eb] shadow-[#3b82f6]/20"
+              }`}
             >
               {isSubmitting ? "Wird gesendet..." : submitLabel}
             </motion.button>

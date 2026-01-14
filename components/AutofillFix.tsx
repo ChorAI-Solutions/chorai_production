@@ -6,6 +6,23 @@ import { useEffect } from "react";
 const darkBackground = "#0a1525";
 const darkForeground = "#cbd5e1";
 
+function isTextLikeInput(element: HTMLInputElement) {
+  const inputType = element.type?.toLowerCase() ?? "text";
+  const nonTextTypes = new Set([
+    "checkbox",
+    "radio",
+    "button",
+    "submit",
+    "reset",
+    "file",
+    "image",
+    "color",
+    "range",
+    "hidden",
+  ]);
+  return !nonTextTypes.has(inputType);
+}
+
 function applyAutofillInlineStyles(htmlElement: HTMLElement) {
   // Force dark theme colors with !important via inline styles
   htmlElement.style.setProperty("background-color", darkBackground, "important");
@@ -25,7 +42,10 @@ function applyAutofillInlineStyles(htmlElement: HTMLElement) {
 
 function isAutofillTarget(element: HTMLElement): boolean {
   const tagName = element.tagName.toLowerCase();
-  return tagName === "input" || tagName === "textarea" || tagName === "select";
+  if (tagName === "textarea" || tagName === "select") return true;
+  if (tagName !== "input") return false;
+  if (!(element instanceof HTMLInputElement)) return false;
+  return isTextLikeInput(element);
 }
 
 function forceDarkStylesOnElement(element: HTMLElement) {
@@ -77,7 +97,9 @@ export default function AutofillFix() {
 
     // Periodic check to force styles on all inputs (catches autofill that happens without events)
     const intervalId = setInterval(() => {
-      const allInputs = document.querySelectorAll<HTMLElement>("input, textarea, select");
+      const allInputs = document.querySelectorAll<HTMLElement>(
+        "input:not([type='checkbox']):not([type='radio']), textarea, select",
+      );
       allInputs.forEach(forceDarkStylesOnElement);
     }, 100);
 
@@ -89,7 +111,9 @@ export default function AutofillFix() {
 
     // Also check immediately on mount
     setTimeout(() => {
-      const allInputs = document.querySelectorAll<HTMLElement>("input, textarea, select");
+      const allInputs = document.querySelectorAll<HTMLElement>(
+        "input:not([type='checkbox']):not([type='radio']), textarea, select",
+      );
       allInputs.forEach(forceDarkStylesOnElement);
     }, 100);
 
