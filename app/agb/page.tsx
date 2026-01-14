@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AgbPreamble } from "./AgbPreamble";
 
 export const metadata = {
   title: "Allgemeine Geschäftsbedingungen - ChorAI",
@@ -17,6 +18,8 @@ export default function AGB() {
             <p>Inh. Margarita Chorow</p>
             <p>Schulbrink 18, 31675 Bückeburg</p>
           </div>
+
+          <AgbPreamble />
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-slate-100">§ 1 Geltungsbereich &amp; Kleinunternehmerregelung</h2>

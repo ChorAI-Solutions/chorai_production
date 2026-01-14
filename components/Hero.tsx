@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Server, Shield, Zap } from "lucide-react";
+import { BadgePercent, MapPin, ShieldCheck } from "lucide-react";
+import { trackAnalyseAnfordernConversion } from "@/lib/analytics/googleAds";
 
 export default function Hero() {
   const scrollToContact = () => {
@@ -12,7 +13,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden overflow-x-hidden pt-16 w-full max-w-full min-w-0">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden overflow-x-hidden pt-16 pb-20 sm:pb-24 w-full max-w-full min-w-0">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -33,67 +34,63 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center w-full max-w-[80vw] sm:max-w-full mx-auto"
+          className="text-center w-full max-w-4xl mx-auto"
         >
-          <h1 className="text-[clamp(1.2rem,6.5vw,2.1rem)] sm:text-4xl md:text-7xl font-bold mb-6 text-slate-100 leading-tight break-words hyphens-auto tracking-tight">
-            SIND SIE NOCH GESCHÄFTSFÜHRER
-            <br />
-            ODER SCHON SEKRETÄR?
+          <h1 className="text-[clamp(1.75rem,6.5vw,3.25rem)] sm:text-5xl md:text-7xl font-extrabold mb-6 text-slate-50 leading-[1.05] break-words hyphens-none tracking-tight">
+            SIND SIE NOCH GESCHÄFTSFÜHRER ODER SCHON SEKRETÄR?
           </h1>
-          <p className="text-[clamp(0.9rem,4vw,1.15rem)] sm:text-lg md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed break-words hyphens-auto">
-            Wir automatisieren Ihre Prozesse auf <span className="text-[#3b82f6] font-semibold">IHRER</span> eigenen Infrastruktur.
-            <br />
-            <span className="text-[#3b82f6]">100% Datenschutz.</span> <span className="text-slate-500">0% Cloud-Zwang.</span>
+          <p className="text-[clamp(1rem,3.8vw,1.2rem)] sm:text-lg md:text-2xl text-slate-300/90 mb-12 max-w-3xl mx-auto leading-relaxed break-words hyphens-none">
+            Schluss mit Papierkram nach Feierabend. Wir digitalisieren Ihr Handwerksbüro – sicher auf Ihren eigenen
+            Servern.
           </p>
+          <ul className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
+            <li className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/40 border border-slate-800/80 text-slate-100 text-sm shadow-sm shadow-black/20">
+              <MapPin className="w-4 h-4 text-[#3b82f6]" />
+              Vor Ort im Schaumburger Land & Minden
+            </li>
+            <li className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/40 border border-slate-800/80 text-slate-100 text-sm shadow-sm shadow-black/20">
+              <ShieldCheck className="w-4 h-4 text-[#3b82f6]" />
+              100% DSGVO & Eigene Server
+            </li>
+            <li className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/40 border border-slate-800/80 text-slate-100 text-sm shadow-sm shadow-black/20">
+              <BadgePercent className="w-4 h-4 text-[#3b82f6]" />
+              Förderfähig (bis 50%)
+            </li>
+          </ul>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto items-center">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={scrollToContact}
-              className="bg-[#3b82f6] text-white px-4 py-3 sm:px-8 sm:py-4 rounded-md text-[clamp(0.85rem,3.5vw,0.95rem)] sm:text-lg font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/20 w-full sm:w-auto max-w-[70vw]"
+              onClick={() => {
+                trackAnalyseAnfordernConversion();
+                scrollToContact();
+              }}
+              className="bg-[#3b82f6] text-white px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-[clamp(0.95rem,3.7vw,1.05rem)] sm:text-lg font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/25 ring-1 ring-white/5 w-full sm:w-auto max-w-[70vw]"
             >
-              Kostenlose Analyse anfordern
+              Jetzt Potenzial prüfen
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById("preise")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-2 border-[#3b82f6] text-[#3b82f6] px-4 py-3 sm:px-8 sm:py-4 rounded-md text-[clamp(0.85rem,3.5vw,0.95rem)] sm:text-lg font-semibold hover:bg-[#3b82f6]/10 transition-colors w-full sm:w-auto max-w-[70vw]"
+              onClick={() => document.getElementById("ablauf")?.scrollIntoView({ behavior: "smooth" })}
+              className="border border-[#3b82f6]/70 text-[#93c5fd] px-5 py-3 sm:px-8 sm:py-4 rounded-xl text-[clamp(0.95rem,3.7vw,1.05rem)] sm:text-lg font-semibold hover:bg-[#3b82f6]/10 transition-colors ring-1 ring-white/5 w-full sm:w-auto max-w-[70vw]"
             >
-              Preise ansehen
+              Ablauf ansehen
             </motion.button>
           </div>
         </motion.div>
 
-        {/* Feature Icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="mt-12 text-center text-slate-300 max-w-3xl mx-auto leading-relaxed"
         >
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-[#3b82f6]/20 rounded-lg flex items-center justify-center mb-4">
-              <Server className="w-8 h-8 text-[#3b82f6]" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Ihre Infrastruktur</h3>
-            <p className="text-slate-400">Vollständige Datenhoheit</p>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-[#3b82f6]/20 rounded-lg flex items-center justify-center mb-4">
-              <Shield className="w-8 h-8 text-[#3b82f6]" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">100% Datenschutz</h3>
-            <p className="text-slate-400">DSGVO-konform</p>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-[#3b82f6]/20 rounded-lg flex items-center justify-center mb-4">
-              <Zap className="w-8 h-8 text-[#3b82f6]" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">Sofort einsatzbereit</h3>
-            <p className="text-slate-400">Managed Service</p>
-          </div>
-        </motion.div>
+          <span className="font-semibold">Prozessautomatisierung für KMU</span> in Schaumburg, Minden-Lübbecke & OWL
+          – als <span className="font-semibold">IT-Service Kreis Schaumburg & Minden-Lübbecke</span> mit Fokus auf{" "}
+          <span className="font-semibold">Büro Digitalisierung OWL</span> und{" "}
+          <span className="font-semibold">Datenschutzkonforme KI</span>.
+        </motion.p>
       </div>
     </section>
   );

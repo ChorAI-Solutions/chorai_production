@@ -1,11 +1,13 @@
 import ContactFormSection from "./ContactFormSection";
 
-export default function Contact() {
+export default function FoerderungContact() {
   return (
     <ContactFormSection
       title="Kontaktaufnahme"
       subtitle="Wir möchten Sie besser kennenlernen."
-      submitLabel="Jetzt Potenzial prüfen"
+      submitLabel="Jetzt Förderung prüfen"
     />
   );
 }
+
+

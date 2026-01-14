@@ -7,10 +7,37 @@ export async function POST(request: Request) {
       });
       
       console.log("Received contact form data:", JSON.stringify(body));
-      const { name, email, company, message } = body;
+      const {
+        name,
+        email,
+        company,
+        roleInCompany,
+        companySize,
+        phoneCountryCode,
+        phoneNumber,
+        monthlyBudget,
+        projectDescription,
+        honeypot,
+        // backwards compatibility
+        message,
+      } = body;
+
+      const companySizeOptions = ["keine Mitarbeiter", "2-5", "6-10", "11-50", "51-200", "200+"] as const;
+      const monthlyBudgetOptions = ["<500", "500-1500", "1500-5000", "5000+"] as const;
+
+      const isNonEmptyString = (value: unknown): value is string => typeof value === "string" && value.trim().length > 0;
+      const trimString = (value: unknown) => (typeof value === "string" ? value.trim() : "");
+      const isValidEmail = (emailValue: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue.trim());
+      const isValidPhoneNumber = (phoneNumberValue: string) => /^[0-9]{6,15}$/.test(phoneNumberValue.trim());
+      const isValidCountryCode = (countryCodeValue: string) => /^[0-9]{1,4}$/.test(countryCodeValue.trim());
+
+      const projectDescriptionValue = trimString(projectDescription) || trimString(message);
+      const phoneCountryCodeValue = trimString(phoneCountryCode) || "49";
+      const phoneNumberValue = trimString(phoneNumber);
+      const phoneValue = phoneNumberValue.length > 0 ? `+${phoneCountryCodeValue} ${phoneNumberValue}` : "";
   
       // Validierung: Pflichtfelder prüfen
-      if (!name || typeof name !== "string" || name.trim().length === 0) {
+      if (!isNonEmptyString(name)) {
         console.error("Validation error: Name missing or invalid", { name, type: typeof name });
         return Response.json(
           { error: "Name ist erforderlich" },
@@ -18,29 +45,79 @@ export async function POST(request: Request) {
         );
       }
   
-      if (!email || typeof email !== "string" || email.trim().length === 0) {
+      if (!isNonEmptyString(email)) {
         console.error("Validation error: Email missing or invalid", { email, type: typeof email });
         return Response.json(
           { error: "E-Mail-Adresse ist erforderlich" },
           { status: 400 }
         );
       }
-  
-      if (!message || typeof message !== "string" || message.trim().length === 0) {
-        console.error("Validation error: Message missing or invalid", { message, type: typeof message });
-        return Response.json(
-          { error: "Nachricht ist erforderlich" },
-          { status: 400 }
-        );
-      }
-  
-      // E-Mail-Format validieren
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.trim())) {
+
+      if (!isValidEmail(email)) {
         return Response.json(
           { error: "Ungültige E-Mail-Adresse" },
           { status: 400 }
         );
+      }
+
+      if (!isNonEmptyString(company)) {
+        return Response.json(
+          { error: "Unternehmen ist erforderlich" },
+          { status: 400 }
+        );
+      }
+
+      if (!isNonEmptyString(roleInCompany)) {
+        return Response.json(
+          { error: "Rolle ist erforderlich" },
+          { status: 400 }
+        );
+      }
+
+      if (!isNonEmptyString(projectDescriptionValue)) {
+        console.error("Validation error: ProjectDescription missing or invalid", { projectDescription, message });
+        return Response.json(
+          { error: "Projektbeschreibung ist erforderlich" },
+          { status: 400 }
+        );
+      }
+
+      if (!companySizeOptions.includes(companySize)) {
+        return Response.json(
+          { error: "Ungültige Unternehmensgröße" },
+          { status: 400 }
+        );
+      }
+
+      if (!monthlyBudgetOptions.includes(monthlyBudget)) {
+        return Response.json(
+          { error: "Ungültiges Budget" },
+          { status: 400 }
+        );
+      }
+
+      // optional: honeypot (Spam)
+      if (isNonEmptyString(honeypot)) {
+        return Response.json(
+          { error: "Ungültige Anfrage" },
+          { status: 400 }
+        );
+      }
+
+      // optional: phone
+      if (phoneNumberValue.length > 0) {
+        if (!isValidPhoneNumber(phoneNumberValue)) {
+          return Response.json(
+            { error: "Ungültige Telefonnummer" },
+            { status: 400 }
+          );
+        }
+        if (!isValidCountryCode(phoneCountryCodeValue)) {
+          return Response.json(
+            { error: "Ungültige Landesvorwahl" },
+            { status: 400 }
+          );
+        }
       }
   
       // n8n Webhook URL aus Environment-Variable
@@ -57,8 +134,16 @@ export async function POST(request: Request) {
       const payload = {
         name: name.trim(),
         email: email.trim(),
-        company: company ? company.trim() : "",
-        message: message.trim(),
+        company: company.trim(),
+        roleInCompany: roleInCompany.trim(),
+        companySize,
+        monthlyBudget,
+        phone: phoneValue,
+        phoneCountryCode: phoneCountryCodeValue,
+        phoneNumber: phoneNumberValue,
+        projectDescription: projectDescriptionValue,
+        // backwards compatibility for existing n8n workflow mapping:
+        message: projectDescriptionValue,
         timestamp: new Date().toISOString(),
         source: "contact-form",
       };

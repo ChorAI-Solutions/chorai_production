@@ -30,6 +30,97 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
+/* ---- Autofill (Browser) Fix: keep dark theme colors ---- */
+html {
+  color-scheme: dark;
+}
+
+input,
+textarea,
+select {
+  color-scheme: dark;
+}
+
+@keyframes choraiAutofillStart {
+  from {}
+  to {}
+}
+
+@keyframes choraiAutofillCancel {
+  from {}
+  to {}
+}
+
+/* Standard pseudo-class (supported in some browsers) */
+input:autofill,
+textarea:autofill,
+select:autofill,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  animation-name: choraiAutofillStart;
+  animation-duration: 1ms;
+  -webkit-text-fill-color: var(--foreground) !important;
+  caret-color: var(--foreground);
+  /* Override the browser's yellow/white autofill background */
+  background-color: var(--background) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important;
+  box-shadow: 0 0 0px 1000px var(--background) inset !important;
+  background-image: none !important;
+  filter: none !important;
+  border-color: rgba(30, 41, 59, 1) !important; /* slate-800-ish */
+  transition: background-color 999999s ease-out 0s, color 999999s ease-out 0s;
+}
+
+input:not(:-webkit-autofill),
+textarea:not(:-webkit-autofill),
+select:not(:-webkit-autofill) {
+  animation-name: choraiAutofillCancel;
+  animation-duration: 1ms;
+}
+
+/* iOS/Safari/Chrome sometimes only apply text color correctly via ::first-line */
+input:-webkit-autofill::first-line,
+textarea:-webkit-autofill::first-line,
+select:-webkit-autofill::first-line {
+  color: var(--foreground) !important;
+  -webkit-text-fill-color: var(--foreground) !important;
+}
+
+/* Chrome/Edge internal pseudo-class (some builds still use this) */
+input:-internal-autofill-selected,
+textarea:-internal-autofill-selected,
+select:-internal-autofill-selected {
+  -webkit-text-fill-color: var(--foreground) !important;
+  caret-color: var(--foreground);
+  background-color: var(--background) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important;
+  box-shadow: 0 0 0px 1000px var(--background) inset !important;
+  background-image: none !important;
+  filter: none !important;
+  border-color: rgba(30, 41, 59, 1) !important;
+}
+
+/* Firefox */
+input:-moz-autofill,
+textarea:-moz-autofill,
+select:-moz-autofill {
+  background-color: var(--background) !important;
+  box-shadow: 0 0 0px 1000px var(--background) inset !important;
+  -moz-text-fill-color: var(--foreground) !important;
+  caret-color: var(--foreground);
+  border-color: rgba(30, 41, 59, 1) !important;
+}
+
 @keyframes blink {
   0%, 50% {
     opacity: 1;
