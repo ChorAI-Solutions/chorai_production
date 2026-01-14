@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { trackAnalyseAnfordernConversion } from "@/lib/analytics/googleAds";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -52,22 +53,31 @@ export default function Navbar() {
               Lösung
             </button>
             <button
-              onClick={() => scrollToSection("preise")}
+              onClick={() => scrollToSection("ablauf")}
               className="text-slate-300 hover:text-[#3b82f6] transition-colors"
             >
-              Preise
+              Ablauf
             </button>
             <button
-              onClick={() => scrollToSection("kontakt")}
-              className="bg-[#3b82f6] text-white px-6 py-2 rounded-md hover:bg-[#2563eb] transition-colors font-medium"
+              onClick={() => scrollToSection("foerderung-2026")}
+              className="text-slate-300 hover:text-[#3b82f6] transition-colors"
             >
-              Analyse anfordern
+              Förderung 2026
+            </button>
+            <button
+              onClick={() => {
+                trackAnalyseAnfordernConversion();
+                scrollToSection("kontakt");
+              }}
+              className="bg-[#3b82f6] text-white px-6 py-2 rounded-xl hover:bg-[#2563eb] transition-colors font-medium shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5"
+            >
+              Potenzial prüfen
             </button>
           </div>
           <div className="md:hidden">
             <button
               onClick={() => scrollToSection("kontakt")}
-              className="bg-[#3b82f6] text-white px-4 py-2 rounded-md hover:bg-[#2563eb] transition-colors font-medium text-sm"
+              className="bg-[#3b82f6] text-white px-4 py-2 rounded-xl hover:bg-[#2563eb] transition-colors font-medium text-sm shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5"
             >
               Kontakt
             </button>
