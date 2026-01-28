@@ -59,7 +59,7 @@ services:
       - internal
 
   n8n:
-    image: n8nio/n8n:2.2.6
+    image: n8nio/n8n:latest
     profiles:
       - n8n
     environment:
@@ -89,7 +89,7 @@ services:
     restart: unless-stopped
 
   caddy:
-    image: caddy:2.10.2-alpine
+    image: caddy:2-alpine
     profiles:
       - prod
     depends_on:

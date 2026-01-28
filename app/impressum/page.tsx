@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Impressum - ChorAI",
@@ -7,25 +9,28 @@ export const metadata = {
 
 export default function Impressum() {
   return (
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-slate-100">Impressum</h1>
-        
-        <div className="prose prose-invert max-w-none space-y-6 text-slate-300">
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-slate-100">Angaben gemäß § 5 TMG</h2>
-            <p>
-              <strong>ChorAI</strong>
-              <br />
-              Einzelunternehmen
-              <br />
-              Inhaberin: Margarita Chorow
-              <br />
-              Schulbrink 18
-              <br />
-              31675 Bückeburg
-            </p>
-          </section>
+    <>
+      <Navbar />
+      <main className="overflow-x-hidden w-full max-w-full">
+        <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold mb-8 text-slate-100">Impressum</h1>
+            
+            <div className="prose prose-invert max-w-none space-y-6 text-slate-300">
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-slate-100">Angaben gemäß § 5 TMG</h2>
+                <p>
+                  <strong>ChorAI</strong>
+                  <br />
+                  Einzelunternehmen
+                  <br />
+                  Inhaberin: Margarita Chorow
+                  <br />
+                  Schulbrink 18
+                  <br />
+                  31675 Bückeburg
+                </p>
+              </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-slate-100">Kontakt</h2>
@@ -78,13 +83,16 @@ export default function Impressum() {
           </section>
         </div>
 
-        <div className="mt-12">
-          <Link href="/" className="text-[#3b82f6] hover:underline">
-            ← Zurück zur Startseite
-          </Link>
+            <div className="mt-12">
+              <Link href="/" className="text-[#3b82f6] hover:underline">
+                ← Zurück zur Startseite
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }
 

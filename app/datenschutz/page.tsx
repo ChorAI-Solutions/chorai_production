@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Datenschutzerklärung - ChorAI",
@@ -7,11 +9,14 @@ export const metadata = {
 
 export default function Datenschutz() {
   return (
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-slate-100">Datenschutzerklärung</h1>
+    <>
+      <Navbar />
+      <main className="overflow-x-hidden w-full max-w-full">
+        <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold mb-8 text-slate-100">Datenschutzerklärung</h1>
 
-        <div className="prose prose-invert max-w-none text-slate-300">
+            <div className="prose prose-invert max-w-none text-slate-300">
           <section>
             <h2>1. Datenschutz auf einen Blick</h2>
             <p>
@@ -122,12 +127,15 @@ export default function Datenschutz() {
           </section>
         </div>
 
-        <div className="mt-12">
-          <Link href="/" className="text-[#3b82f6] hover:underline">
-            ← Zurück zur Startseite
-          </Link>
+            <div className="mt-12">
+              <Link href="/" className="text-[#3b82f6] hover:underline">
+                ← Zurück zur Startseite
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   );
 }

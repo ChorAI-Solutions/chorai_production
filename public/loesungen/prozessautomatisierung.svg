@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1525"/>
+      <stop offset="1" stop-color="#0b0b86"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1222" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#0f1b33" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1040" cy="520" r="190" fill="#3b82f6" opacity="0.12"/>
+  <circle cx="220" cy="140" r="150" fill="#ec4899" opacity="0.14"/>
+
+  <rect x="110" y="125" width="980" height="425" rx="28" fill="url(#panel)" stroke="#3b82f6" stroke-opacity="0.22"/>
+
+  <text x="160" y="190" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="34" font-weight="800" fill="#e2e8f0">
+    Prozessautomatisierung: Anfrage → Rechnung
+  </text>
+  <text x="160" y="228" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="18" fill="#cbd5e1" opacity="0.9">
+    Ein sauberer Ablauf – weniger Rückfragen, weniger Fehler, mehr Tempo.
+  </text>
+
+  <!-- Flow nodes -->
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">
+    <g transform="translate(160 270)">
+      <rect width="220" height="110" rx="18" fill="#0a1525" stroke="#334155"/>
+      <circle cx="36" cy="38" r="16" fill="#3b82f6" opacity="0.22"/>
+      <path d="M28 34h16M28 42h24" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+      <text x="70" y="46" font-size="18" font-weight="800" fill="#e2e8f0">Anfrage</text>
+      <text x="70" y="72" font-size="13" fill="#94a3b8">E-Mail / Formular</text>
+    </g>
+
+    <g transform="translate(420 270)">
+      <rect width="220" height="110" rx="18" fill="#0a1525" stroke="#334155"/>
+      <circle cx="36" cy="38" r="16" fill="#ec4899" opacity="0.22"/>
+      <path d="M28 42h20M28 34h12" stroke="#fda4af" stroke-width="3" stroke-linecap="round"/>
+      <text x="70" y="46" font-size="18" font-weight="800" fill="#e2e8f0">Angebot</text>
+      <text x="70" y="72" font-size="13" fill="#94a3b8">Daten vorbefüllt</text>
+    </g>
+
+    <g transform="translate(680 270)">
+      <rect width="220" height="110" rx="18" fill="#0a1525" stroke="#334155"/>
+      <circle cx="36" cy="38" r="16" fill="#22c55e" opacity="0.22"/>
+      <path d="M28 40l7 7 14-18" fill="none" stroke="#86efac" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="70" y="46" font-size="18" font-weight="800" fill="#e2e8f0">Auftrag</text>
+      <text x="70" y="72" font-size="13" fill="#94a3b8">Freigabe &amp; Start</text>
+    </g>
+
+    <g transform="translate(940 270)">
+      <rect width="220" height="110" rx="18" fill="#0a1525" stroke="#334155"/>
+      <circle cx="36" cy="38" r="16" fill="#60a5fa" opacity="0.22"/>
+      <path d="M28 34h24M28 42h18M28 50h22" stroke="#bfdbfe" stroke-width="3" stroke-linecap="round"/>
+      <text x="70" y="46" font-size="18" font-weight="800" fill="#e2e8f0">Rechnung</text>
+      <text x="70" y="72" font-size="13" fill="#94a3b8">inkl. Doku</text>
+    </g>
+  </g>
+
+  <!-- Connectors -->
+  <g fill="none" stroke="#94a3b8" stroke-width="5" stroke-linecap="round" opacity="0.75">
+    <path d="M380 325h40"/>
+    <path d="M640 325h40"/>
+    <path d="M900 325h40"/>
+    <path d="M420 325l-10-8M420 325l-10 8"/>
+    <path d="M680 325l-10-8M680 325l-10 8"/>
+    <path d="M940 325l-10-8M940 325l-10 8"/>
+  </g>
+
+  <!-- Side outputs -->
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial">
+    <g transform="translate(160 420)">
+      <rect width="440" height="105" rx="18" fill="#0a1525" stroke="#334155"/>
+      <text x="22" y="44" font-size="16" font-weight="800" fill="#e2e8f0">Automatisch dabei:</text>
+      <text x="22" y="72" font-size="13" fill="#94a3b8">Termin-Check, Dokumentablage, Status-Updates, Erinnerungen</text>
+    </g>
+    <g transform="translate(620 420)">
+      <rect width="540" height="105" rx="18" fill="#0a1525" stroke="#334155"/>
+      <text x="22" y="44" font-size="16" font-weight="800" fill="#e2e8f0">Optional mit KI:</text>
+      <text x="22" y="72" font-size="13" fill="#94a3b8">Texte aus Stichpunkten, Zusammenfassungen, Vorqualifizierung</text>
+    </g>
+  </g>
+</svg>

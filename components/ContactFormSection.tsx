@@ -67,6 +67,30 @@ const buildPhone = (phoneCountryCode: string, phoneNumber: string) => {
   return `+${phoneCountryCodeValue} ${phoneNumberValue}`;
 };
 
+// #region agent log
+const sendDebugLog = (payload: {
+  runId: string;
+  hypothesisId: string;
+  location: string;
+  message: string;
+  data?: Record<string, unknown>;
+}) => {
+  fetch("http://localhost:7242/ingest/cde80c10-4bbf-49dd-9871-235c903f9938", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      sessionId: "debug-session",
+      runId: payload.runId,
+      hypothesisId: payload.hypothesisId,
+      location: payload.location,
+      message: payload.message,
+      data: payload.data ?? {},
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+};
+// #endregion agent log
+
 type ContactFormSectionProps = {
   title: string;
   subtitle: string;
@@ -125,6 +149,10 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
   const [consentTouched, setConsentTouched] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const showConsentError = (consentTouched || submitAttempted) && !consent;
+  const clientRequestId = useMemo(() => {
+    if (typeof globalThis.crypto?.randomUUID === "function") return globalThis.crypto.randomUUID();
+    return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }, []);
 
   const isFormValid = useMemo(() => {
     const hasPhoneNumber = isNonEmptyString(formData.phoneNumber);
@@ -153,6 +181,24 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
     setSubmitAttempted(true);
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
+    // #region agent log
+    sendDebugLog({
+      runId: "chrome-repro",
+      hypothesisId: "H1",
+      location: "components/ContactFormSection.tsx:handleSubmit",
+      message: "submit_clicked",
+      data: {
+        clientRequestId,
+        consent,
+        isFormValid,
+        isSubmitting,
+        hasCompanySize: formData.companySize !== "",
+        hasMonthlyBudget: formData.monthlyBudget !== "",
+        hasProjectDescription: isNonEmptyString(formData.projectDescription),
+        hasPhoneNumber: isNonEmptyString(formData.phoneNumber),
+      },
+    });
+    // #endregion agent log
 
     // Mark all fields as touched
     setTouched({
@@ -170,12 +216,30 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
 
     if (!consent) {
       setSubmitStatus({ type: "error", message: "Bitte akzeptieren Sie die Datenschutzbestimmungen." });
+      // #region agent log
+      sendDebugLog({
+        runId: "chrome-repro",
+        hypothesisId: "H1",
+        location: "components/ContactFormSection.tsx:handleSubmit",
+        message: "blocked_missing_consent",
+        data: { clientRequestId },
+      });
+      // #endregion agent log
       setIsSubmitting(false);
       return;
     }
 
     if (!isFormValid) {
       setSubmitStatus({ type: "error", message: "Bitte füllen Sie alle Pflichtfelder korrekt aus." });
+      // #region agent log
+      sendDebugLog({
+        runId: "chrome-repro",
+        hypothesisId: "H1",
+        location: "components/ContactFormSection.tsx:handleSubmit",
+        message: "blocked_invalid_form",
+        data: { clientRequestId },
+      });
+      // #endregion agent log
       setIsSubmitting(false);
       return;
     }
@@ -183,16 +247,40 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
     trackAnalyseAnfordernConversion();
 
     try {
+      // #region agent log
+      sendDebugLog({
+        runId: "chrome-repro",
+        hypothesisId: "H2",
+        location: "components/ContactFormSection.tsx:handleSubmit",
+        message: "fetch_api_contact_start",
+        data: { clientRequestId },
+      });
+      // #endregion agent log
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           phone: buildPhone(formData.phoneCountryCode, formData.phoneNumber),
+          clientRequestId,
         }),
       });
 
       const data = await response.json().catch(() => ({}));
+      // #region agent log
+      sendDebugLog({
+        runId: "chrome-repro",
+        hypothesisId: "H2",
+        location: "components/ContactFormSection.tsx:handleSubmit",
+        message: "fetch_api_contact_done",
+        data: {
+          clientRequestId,
+          httpStatus: response.status,
+          ok: response.ok,
+          responseKeys: data && typeof data === "object" ? Object.keys(data) : [],
+        },
+      });
+      // #endregion agent log
       if (!response.ok) throw new Error(data.error || "Fehler beim Senden der Nachricht");
 
       setSubmitStatus({
@@ -215,6 +303,18 @@ export default function ContactFormSection({ title, subtitle, submitLabel }: Con
       setConsentTouched(false);
       setSubmitAttempted(false);
     } catch (error) {
+      // #region agent log
+      sendDebugLog({
+        runId: "chrome-repro",
+        hypothesisId: "H2",
+        location: "components/ContactFormSection.tsx:handleSubmit",
+        message: "fetch_api_contact_failed",
+        data: {
+          clientRequestId,
+          errorMessage: error instanceof Error ? error.message : String(error),
+        },
+      });
+      // #endregion agent log
       setSubmitStatus({
         type: "error",
         message: error instanceof Error ? error.message : "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",

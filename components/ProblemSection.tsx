@@ -23,7 +23,7 @@ const problems = [
 
 export default function ProblemSection() {
   return (
-    <section id="problem" className="py-20 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section id="problem" className="py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -51,13 +51,13 @@ export default function ProblemSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-8 shadow-lg shadow-black/25 ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
+                className="bg-slate-900/40 border border-slate-800/80 rounded-xl p-8 shadow-lg shadow-black/20 ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/30"
               >
-                <div className="w-16 h-16 bg-red-500/15 border border-red-500/20 rounded-xl flex items-center justify-center mb-4 shadow-sm shadow-black/20">
-                  <Icon className="w-8 h-8 text-red-400" />
+                <div className="w-16 h-16 bg-[#3b82f6]/15 border border-[#3b82f6]/20 rounded-xl flex items-center justify-center mb-4 shadow-sm shadow-black/20">
+                  <Icon className="w-8 h-8 text-[#3b82f6]" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-slate-100 tracking-tight">{problem.title}</h3>
-                <p className="text-slate-300/80 leading-relaxed">{problem.description}</p>
+                <p className="text-slate-300/85 leading-relaxed">{problem.description}</p>
               </motion.article>
             );
           })}

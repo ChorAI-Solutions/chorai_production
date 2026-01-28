@@ -55,10 +55,10 @@ export default function Foerderung2026Section() {
                 tagesaktuell die Nachfolgeprogramme des Digitalbonus.
               </p>
 
-              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 items-center sm:items-start sm:justify-start">
                 <button
                   onClick={handleCtaClick}
-                  className="bg-[#3b82f6] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5"
+                  className="bg-[#3b82f6] text-white px-[22px] py-3 rounded-xl font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5"
                 >
                   Förderfähigkeit in meiner Region prüfen
                 </button>

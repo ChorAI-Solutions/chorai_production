@@ -1,28 +1,39 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Bot, HardDrive, Lock, Wrench } from "lucide-react";
+import { Bot, MessageSquareText, PhoneCall, Sparkles, Workflow } from "lucide-react";
 
-const solutions = [
+const solutionCards = [
+  {
+    icon: Sparkles,
+    title: "KI-Beratung",
+    description: "Verständlich starten: Use-Cases finden, Prioritäten setzen, Roadmap erstellen.",
+    href: "/loesungen/ki-beratung",
+  },
+  {
+    icon: Workflow,
+    title: "Prozessautomatisierung",
+    description: "Abläufe, die automatisch laufen – von Anfrage bis Rechnung, ohne Copy/Paste.",
+    href: "/loesungen/prozessautomatisierung",
+  },
   {
     icon: Bot,
-    title: "Ihr digitaler Mitarbeiter (24/7)",
-    description: "Er wird nie krank, arbeitet 24/7 und kostet weniger als ein Minijobber.",
+    title: "KI-Agenten",
+    description: "Digitale Helfer, die sortieren, nachfragen und den nächsten Schritt starten.",
+    href: "/loesungen/ki-agenten",
   },
   {
-    icon: HardDrive,
-    title: "Managed Self-Hosting",
-    description: "Alles läuft sicher auf Ihren eigenen Servern in Deutschland – Sie behalten die volle Datenhoheit.",
+    icon: MessageSquareText,
+    title: "KI-Chatbot",
+    description: "Fragen klären & Leads qualifizieren – 24/7 auf Ihrer Website.",
+    href: "/loesungen/ki-chatbot",
   },
   {
-    icon: Lock,
-    title: "Datenschutzkonforme KI",
-    description: "DSGVO-konform, ohne Cloud-Zwang. Ideal für sensible Betriebsdaten im Handwerk.",
-  },
-  {
-    icon: Wrench,
-    title: "Mitarbeiter entlasten",
-    description: "Weniger Chaos im Büro, mehr Zeit für Baustelle und Kunden – wir übernehmen Setup, Wartung und Updates.",
+    icon: PhoneCall,
+    title: "KI-Telefonassistent",
+    description: "Anrufe annehmen, Infos erfassen, sauber ans Team übergeben.",
+    href: "/loesungen/ki-telefonassistent",
   },
 ];
 
@@ -38,20 +49,19 @@ export default function SolutionSection() {
           className="text-center mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-slate-50 leading-tight break-words hyphens-none tracking-tight">
-            Datenschutzkonforme KI, die Mitarbeiter entlastet
+            Lösungen, die im Handwerk sofort helfen
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-slate-300/90 max-w-3xl mx-auto break-words hyphens-none leading-relaxed">
-            Büro Digitalisierung Minden: Wir bauen Ihren digitalen Mitarbeiter so, dass er im Alltag wirklich hilft –
-            nicht in PowerPoints, sondern im Büro.
+            Wählen Sie den Einstieg, der zu Ihrem Betrieb passt – von Beratung bis Umsetzung.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {solutions.map((solution, index) => {
-            const Icon = solution.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {solutionCards.map((solutionCard, index) => {
+            const Icon = solutionCard.icon;
             return (
               <motion.article
-                key={solution.title}
+                key={solutionCard.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -61,17 +71,21 @@ export default function SolutionSection() {
                 <div className="w-16 h-16 bg-[#3b82f6]/15 border border-[#3b82f6]/20 rounded-xl flex items-center justify-center mb-4 shadow-sm shadow-black/20">
                   <Icon className="w-8 h-8 text-[#3b82f6]" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-slate-100 tracking-tight">{solution.title}</h3>
-                <p className="text-slate-300/80 leading-relaxed">{solution.description}</p>
+                <h3 className="text-xl font-semibold mb-3 text-slate-100 tracking-tight">{solutionCard.title}</h3>
+                <p className="text-slate-300/80 leading-relaxed">{solutionCard.description}</p>
+                <div className="mt-5">
+                  <Link
+                    href={solutionCard.href}
+                    className="inline-flex items-center justify-center bg-[#3b82f6] text-white px-[22px] py-2 rounded-xl font-semibold hover:bg-[#2563eb] transition-colors shadow-lg shadow-[#3b82f6]/20 ring-1 ring-white/5"
+                  >
+                    Mehr erfahren
+                  </Link>
+                </div>
               </motion.article>
             );
           })}
         </div>
 
-        <p className="mt-10 text-center text-sm text-slate-300 max-w-3xl mx-auto">
-          Technische Basis: <span className="font-semibold">Docker</span> & <span className="font-semibold">n8n</span> – als
-          Managed Service betrieben.
-        </p>
       </div>
     </section>
   );
