@@ -18,7 +18,7 @@ export default function Impressum() {
             
             <div className="prose prose-invert max-w-none space-y-6 text-slate-300">
               <section>
-                <h2 className="text-2xl font-semibold mb-4 text-slate-100">Angaben gemäß § 5 TMG</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-slate-100">Angaben gemäß § 5 DDG</h2>
                 <p>
                   <strong>ChorAI</strong>
                   <br />
@@ -62,16 +62,6 @@ export default function Impressum() {
               Schulbrink 18
               <br />
               31675 Bückeburg
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-slate-100">EU-Streitschlichtung</h2>
-            <p>
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">https://ec.europa.eu/consumers/odr/</a>.
-              <br />
-              <br />
-              Unsere E-Mail-Adresse finden Sie oben im Impressum.
             </p>
           </section>
 

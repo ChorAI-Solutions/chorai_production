@@ -68,6 +68,12 @@ export default function Chatbot() {
     "https://n8n.chorai.de/webhook/chatbot";
   const [messages, setMessages] = useState<Message[]>([
     {
+      id: "0",
+      text: "Mit dem Versenden deiner Nachricht erklärst du dich mit den Regelungen unserer [Datenschutzerklärung](/datenschutz) einverstanden.",
+      sender: "bot",
+      timestamp: new Date(),
+    },
+    {
       id: "1",
       text: "Hallo! Wie kann ich dir helfen?",
       sender: "bot",

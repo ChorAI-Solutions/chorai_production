@@ -43,12 +43,12 @@ export default function Datenschutz() {
             <p>
               <strong>Wie erfassen wir Ihre Daten?</strong>
               <br />
-              Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei handelt es sich z.&nbsp;B. um Daten, die Sie in unser Kontaktformular eingeben. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst (z.&nbsp;B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).
+              Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei handelt es sich z.&nbsp;B. um Daten, die Sie in unser Kontaktformular eingeben oder Nachrichten, die Sie an unseren KI-Chatbot senden. Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst (z.&nbsp;B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).
             </p>
             <p>
               <strong>Wofür nutzen wir Ihre Daten?</strong>
               <br />
-              Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden oder um Ihre Kontaktanfragen zu beantworten.
+              Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden, um Ihre Kontaktanfragen zu beantworten oder um Ihre Chat-Nachrichten im KI-Chatbot zu verarbeiten.
             </p>
           </section>
 
@@ -94,10 +94,15 @@ export default function Datenschutz() {
             <p>
               <strong>Kontaktformular</strong>
               <br />
-              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
+              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zur Bearbeitung der Anfrage und für den Fall von Anschlussfragen über unseren Workflow-Dienst (n8n) verarbeitet. Die Daten können zur Kundenverwaltung an Brevo weitergegeben werden. Diese Daten geben wir nicht ohne Ihre Einwilligung an weitere Dritte weiter.
             </p>
             <p>
-              Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), sofern diese abgefragt wurde.
+              Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung Ihrer Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), sofern diese abgefragt wurde.
+            </p>
+            <p>
+              <strong>KI-Chatbot</strong>
+              <br />
+              Diese Website bietet einen KI-Chatbot an. Die von Ihnen eingegebenen Nachrichten werden zur Beantwortung Ihrer Fragen an unseren Workflow-Dienst (n8n) übermittelt und dort verarbeitet. Dabei kann zur Erstellung von Antworten ein KI-Sprachmodell (z.&nbsp;B. OpenAI) genutzt werden. Ihre Nachrichten werden nur für die unmittelbare Beantwortung verwendet; eine dauerhafte Speicherung zu Marketing- oder Profilierungszwecken erfolgt nicht. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Kundenkommunikation).
             </p>
             <p>
               <strong>Anfrage per E-Mail oder Telefon</strong>

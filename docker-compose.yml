@@ -59,8 +59,8 @@ services:
       - internal
 
   n8n:
-    # Gepinnt auf 2.5.2+ wegen BSI-Sicherheitshinweis (CVE-2025-68613, CVE-2026-25049 ff.)
-    image: n8nio/n8n:2.5.2
+    # Aktuelle Version (CVE-2025-68613, CVE-2026-25049 in 2.5.2+ behoben)
+    image: n8nio/n8n:2.10.3
     profiles:
       - n8n
     environment:
