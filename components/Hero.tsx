@@ -50,7 +50,7 @@ export default function Hero() {
             </li>
             <li className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/40 border border-slate-800/80 text-slate-100 text-sm shadow-sm shadow-black/20">
               <ShieldCheck className="w-4 h-4 text-[#3b82f6]" />
-              100% DSGVO & Eigene Server
+              Datenschutz & eigene Server
             </li>
             <li className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/40 border border-slate-800/80 text-slate-100 text-sm shadow-sm shadow-black/20">
               <BadgePercent className="w-4 h-4 text-[#3b82f6]" />

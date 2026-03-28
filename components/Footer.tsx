@@ -13,7 +13,7 @@ export default function Footer() {
             </h3>
             <p className="text-slate-400 text-sm">
               Managed Automation auf Ihrer Infrastruktur.
-              {" "}100% Datenschutz. 0% Cloud-Zwang.
+              {" "}Datenschutzorientiert. 0% Cloud-Zwang.
             </p>
           </div>
           <div>

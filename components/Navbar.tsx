@@ -22,6 +22,15 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     if (!isSolutionsMenuOpen) return;
 
     const handleDocumentPointerDown = (event: PointerEvent) => {
@@ -47,13 +56,24 @@ export default function Navbar() {
   );
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#0a1525]/95 backdrop-blur-sm border-b border-slate-800" : "bg-transparent"
-      }`}
-    >
+    <>
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-[90] bg-[#0a1525] md:hidden"
+          aria-hidden
+        />
+      )}
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`fixed top-0 left-0 right-0 transition-all duration-300 ${
+          isMobileMenuOpen ? "z-[110]" : "z-50"
+        } ${
+          scrolled || isMobileMenuOpen
+            ? "border-b border-slate-800 bg-[#0a1525]"
+            : "bg-transparent"
+        }`}
+      >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
@@ -135,7 +155,7 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div
             id="mobile-menu"
-            className="md:hidden pb-4 pt-2 border-t border-slate-800/60"
+            className="md:hidden border-t border-slate-800 bg-[#0a1525] pb-4 pt-2 shadow-[0_12px_24px_rgba(0,0,0,0.45)]"
           >
             <div className="space-y-1">
               <Link
@@ -190,6 +210,7 @@ export default function Navbar() {
         )}
       </div>
     </motion.nav>
+    </>
   );
 }
 

@@ -48,7 +48,7 @@ export default function Datenschutz() {
             <p>
               <strong>Wofür nutzen wir Ihre Daten?</strong>
               <br />
-              Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden, um Ihre Kontaktanfragen zu beantworten oder um Ihre Chat-Nachrichten im KI-Chatbot zu verarbeiten.
+              Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten (Server-Logs). Wir verarbeiten darüber hinaus Angaben, die Sie aktiv übermitteln (Kontaktformular, Chat), und nutzen – sofern Sie eingewilligt haben oder es gesetzlich zulässig ist – Conversion-Maßnahmen von Google Ads (siehe Abschnitt 6).
             </p>
           </section>
 
@@ -128,6 +128,58 @@ export default function Datenschutz() {
               <strong>Auftragsverarbeitung</strong>
               <br />
               Wir haben mit Brevo einen Vertrag zur Auftragsverarbeitung abgeschlossen, der sicherstellt, dass die Daten unserer Websitebesucher nur nach unseren Weisungen und DSGVO-konform verarbeitet werden.
+            </p>
+          </section>
+
+          <section>
+            <h2>6. Online-Marketing und Conversion-Messung (Google Ads)</h2>
+            <p>
+              Diese Website verwendet <strong>Google Ads</strong> mit Conversion-Tracking. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland („Google“). Über eingebundene Skripte von <code className="text-slate-400">googletagmanager.com</code> / <strong>gtag.js</strong> können Cookies oder ähnliche Kennungen gesetzt und Nutzungsereignisse (z.&nbsp;B. Conversions bei Anfragen) an Google übermittelt werden.
+            </p>
+            <p>
+              Zweck ist die Auswertung von Werbemaßnahmen und Conversion-Messung. Details zu Datenschutz bei Google:{" "}
+              <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">
+                https://policies.google.com/privacy
+              </a>{" "}
+              sowie{" "}
+              <a href="https://business.safety.google/adsservices/" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">
+                Google Ads &amp; Datenschutz
+              </a>.
+            </p>
+            <p>
+              <strong>Einwilligung per Banner:</strong> Beim ersten Besuch können Sie über unser Cookie-Banner auswählen, ob Marketing-Cookies und das Google-Ads-Messungsskript geladen werden dürfen. Ohne Zustimmung unter „Marketing zulassen“ werden diese Technologien nicht eingebunden.
+            </p>
+            <p>
+              <strong>Rechtsgrundlage:</strong> Mit Ihrer Einwilligung über das Banner (Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 TTDSG) werden die beschriebenen Marketing-Maßnahmen aktiviert. Ohne Einwilligung findet keine entsprechende Verarbeitung durch Google Ads statt.
+            </p>
+            <p>
+              Sie können der interessenbezogenen Werbung bei Google widersprechen oder die Cookie-Einstellungen Ihres Browsers anpassen. Einstellungen zur personalisierten Werbung:{" "}
+              <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">
+                https://adssettings.google.com
+              </a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>7. Ihre Rechte und Beschwerdemöglichkeit</h2>
+            <p>
+              Sie haben das Recht auf <strong>Auskunft</strong> über die Sie betreffenden personenbezogenen Daten (Art. 15 DSGVO), <strong>Berichtigung</strong> (Art. 16 DSGVO), <strong>Löschung</strong> (Art. 17 DSGVO), <strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO), <strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO) sowie <strong>Widerspruch</strong> gegen die Verarbeitung (Art. 21 DSGVO), soweit die gesetzlichen Voraussetzungen vorliegen.
+            </p>
+            <p>
+              Sofern die Verarbeitung auf Einwilligung beruht, können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt unberührt.
+            </p>
+            <p>
+              Sie haben zudem das Recht, sich bei einer <strong>Datenschutz-Aufsichtsbehörde</strong> zu beschweren. Zuständig ist insbesondere die Landesbeauftragte für den Datenschutz Niedersachsen (
+              <a href="https://www.lfd.niedersachsen.de" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">
+                www.lfd.niedersachsen.de
+              </a>
+              ), sofern Sie sich in Niedersachsen aufhalten oder der Vorfall einen Bezug hierher hat.
+            </p>
+          </section>
+
+          <section>
+            <p className="text-sm text-slate-400">
+              <strong>Stand dieser Datenschutzerklärung:</strong> März 2026
             </p>
           </section>
         </div>

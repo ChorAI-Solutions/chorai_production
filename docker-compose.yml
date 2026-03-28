@@ -28,8 +28,6 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - internal
-    volumes:
-      - /var/www/Production/.cursor:/var/www/Production/.cursor
 
   web-dev:
     profiles:
@@ -59,8 +57,8 @@ services:
       - internal
 
   n8n:
-    # Aktuelle Version (CVE-2025-68613, CVE-2026-25049 in 2.5.2+ behoben)
-    image: n8nio/n8n:2.10.3
+    # Stabiles Release (regelmäßig prüfen unter https://github.com/n8n-io/n8n/releases)
+    image: n8nio/n8n:2.13.4
     profiles:
       - n8n
     environment:

@@ -74,8 +74,14 @@ export default function AGB() {
 
               <section>
                 <h2 className="text-2xl font-semibold mb-4 text-slate-100">§ 5 Schlussbestimmungen</h2>
+                <p className="mb-2">
+                  Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.
+                </p>
+                <p className="mb-2">
+                  Sind Sie <strong>Unternehmer</strong>, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag Bückeburg.
+                </p>
                 <p>
-                  Es gilt deutsches Recht. Gerichtsstand ist Bückeburg.
+                  Sind Sie <strong>Verbraucher</strong> im Sinne von § 13 BGB, bleiben die gesetzlichen Gerichtsstände unberührt (insb. §§ 29 ff. ZPO, Art. 18 ff. EuGVVO); eine abweichende Gerichtsstandsvereinbarung ist gegenüber Verbrauchern nur wirksam, wenn sie den gesetzlichen Vorgaben entspricht.
                 </p>
               </section>
             </div>

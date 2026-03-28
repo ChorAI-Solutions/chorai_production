@@ -3,7 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Chatbot from "@/components/Chatbot";
-import DebugPing from "@/components/DebugPing";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 import AutofillFix from "@/components/AutofillFix";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -44,9 +44,9 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Prozessautomatisierung Handwerk & KMU | Schaumburg, Minden & OWL | ChorAI",
   description:
-    "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, 100% DSGVO-konform, staatlich gefördert.",
+    "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, datenschutzorientiert, staatlich gefördert.",
   keywords:
-    "Prozessautomatisierung für KMU, Prozessautomatisierung Handwerk, IT-Service Kreis Schaumburg & Minden-Lübbecke, Büro Digitalisierung OWL, Datenschutzkonforme KI, DSGVO, Automatisierung, Bückeburg, Minden, Schaumburg, Ostwestfalen-Lippe",
+    "Prozessautomatisierung für KMU, Prozessautomatisierung Handwerk, IT-Service Kreis Schaumburg & Minden-Lübbecke, Büro Digitalisierung OWL, datenschutzorientierte KI, DSGVO, Automatisierung, Bückeburg, Minden, Schaumburg, Ostwestfalen-Lippe",
   authors: [{ name: "Margarita Chorow" }],
   metadataBase: new URL("https://chorai.de"),
   alternates: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Prozessautomatisierung Handwerk & KMU | ChorAI",
     description:
-      "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, 100% DSGVO-konform, staatlich gefördert.",
+      "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, datenschutzorientiert, staatlich gefördert.",
     type: "website",
     url: "https://chorai.de",
     siteName: "ChorAI",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Prozessautomatisierung Handwerk & KMU | ChorAI",
     description:
-      "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, 100% DSGVO-konform, staatlich gefördert.",
+      "Wir automatisieren lästige Büroarbeit für Handwerker und KMUs im Landkreis Schaumburg, Minden-Lübbecke und Umgebung. Eigene Server, datenschutzorientiert, staatlich gefördert.",
   },
 };
 
@@ -76,35 +76,6 @@ export default function RootLayout({
   return (
     <html lang="de" className="dark overflow-x-hidden">
       <head>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17808977886"
-          strategy="afterInteractive"
-        />
-        <Script id="google-ads-gtag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-17808977886');
-          `}
-        </Script>
-        <Script id="google-ads-gtag-report-conversion" strategy="afterInteractive">
-          {`
-            function gtag_report_conversion(url) {
-              var callback = function () {
-                if (typeof(url) != 'undefined') {
-                  window.location = url;
-                }
-              };
-              gtag('event', 'conversion', {
-                  'send_to': 'AW-17808977886/4i0QCNXEn9IbEN7f_atC',
-                  'event_callback': callback
-              });
-              return false;
-            }
-          `}
-        </Script>
         <Script id="schema-localbusiness" type="application/ld+json" strategy="beforeInteractive">
           {JSON.stringify(localBusinessJsonLd)}
         </Script>
@@ -113,8 +84,8 @@ export default function RootLayout({
         className={`${jetbrainsMono.variable} antialiased bg-[#0a1525] text-slate-300 overflow-x-hidden w-full max-w-full`}
       >
         <AutofillFix />
-        <DebugPing />
         {children}
+        <CookieConsentBanner />
         <Chatbot />
       </body>
     </html>

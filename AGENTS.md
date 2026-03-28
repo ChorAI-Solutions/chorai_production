@@ -2,6 +2,21 @@
 
 Dieser Leitfaden zeigt dir, wie du in diesem Projekt schrittweise einen Chat‑Agent (später Voice‑Agent) baust und n8n einbindest. Alles ist für Windows, macOS und Linux vorbereitet.
 
+## Agent: Neustart / Deploy nach Änderungen
+
+**Verbindliche Regel für KI-Agenten und manuelle Arbeit am Repo:** Nach **jeder** abgeschlossenen Änderung am Anwendungscode (Next.js, Komponenten, API-Routen, `package.json` usw.) den **Web‑Stack neu ausliefern**, damit Produktion und Tests den aktuellen Stand sehen.
+
+- **Produktion (Docker, Profil `prod`):** Immer Image neu bauen und Container starten (nicht nur `restart`, sonst läuft oft noch alter Build):
+  ```bash
+  cd /var/www/Production && docker compose --profile prod up -d --build web
+  ```
+- **Nur Konfiguration/Env ohne App-Code:** Genügt ggf. `docker compose --profile prod restart web`.
+- **Lokal dev (Profil `dev`):** Entsprechend Hot-Reload beachten; bei Bedarf `docker compose --profile dev restart web-dev`.
+
+Kurz: **Code geändert → `up -d --build web` ausführen** (bzw. gleichwertiges Target), danach bei Bedarf `/api/health` prüfen.
+
+---
+
 ## Voraussetzungen
 - Repo geklont, `.env` via `make setup` erstellt (Vorlage & Meta-Daten: `env.template`)
 - Stack läuft: `docker compose up -d --build`
