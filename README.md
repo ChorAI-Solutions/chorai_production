@@ -34,7 +34,7 @@ Alle Bausteine werden über Makefile-Targets gestartet. Diese Anleitung führt d
 
 - Docker Desktop (macOS/Windows) oder Docker Engine + Compose Plugin (Linux)
 - Git und eine Shell (zsh/Bash/PowerShell)
-- Node.js 20.x + npm (das Setup-Skript installiert/aktualisiert diese Version automatisch, falls nötig)
+- Node.js 22.x + npm (das Setup-Skript installiert/aktualisiert diese Version automatisch, falls nötig)
 
 Auf frischen Linux-Servern zusätzlich:
 
@@ -58,7 +58,7 @@ sudo apt install -y docker.io docker-compose-plugin make git
    make setup            # Scope=dev
    ```
    - Gibt es bereits eine `.env`, fragt das Skript, ob die bestehenden Werte genutzt werden sollen.
-   - Das Setup prüft Git, Docker sowie Node.js und installiert bei Bedarf automatisch Node.js 20.x (NodeSource auf Linux bzw. Homebrew auf macOS).
+   - Das Setup prüft Git, Docker sowie Node.js und installiert bei Bedarf automatisch Node.js 22.x (NodeSource auf Linux bzw. Homebrew auf macOS).
    - Im Anschluss wird automatisch `docker/supabase/.env` erstellt/aktualisiert.
 
 3. **Supabase-Stack starten**

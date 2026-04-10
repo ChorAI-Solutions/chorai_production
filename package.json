@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20.19.31",
+    "@types/node": "^22.15.0",
     "@types/pg": "^8.16.0",
     "@types/react": "^19.2.12",
     "@types/react-dom": "^19.2.3",
@@ -34,7 +34,7 @@
     "typescript": "^5"
   },
   "overrides": {
-    "hono": "^4.11.4",
-    "@hono/node-server": "^1.19.9"
+    "hono": "^4.12.12",
+    "@hono/node-server": "^1.19.13"
   }
 }

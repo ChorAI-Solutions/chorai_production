@@ -32,7 +32,7 @@ services:
   web-dev:
     profiles:
       - dev
-    image: node:20-alpine
+    image: node:22-alpine
     working_dir: /app
     env_file:
       - .env
@@ -58,7 +58,7 @@ services:
 
   n8n:
     # Stabiles Release (regelmäßig prüfen unter https://github.com/n8n-io/n8n/releases)
-    image: n8nio/n8n:2.13.4
+    image: n8nio/n8n:2.15.1
     profiles:
       - n8n
     environment:

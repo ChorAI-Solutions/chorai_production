@@ -101,7 +101,7 @@ ensure_git() {
 }
 
 ensure_node_stack() {
-  local required_major=20
+  local required_major=22
   local node_ok=0
 
   if command -v node >/dev/null 2>&1; then
