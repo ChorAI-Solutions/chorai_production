@@ -17,6 +17,62 @@ Kurz: **Code geändert → `up -d --build web` ausführen** (bzw. gleichwertiges
 
 ---
 
+## Wartung & Updates (Standard‑Ablauf für Agenten)
+
+**Verbindliche Regel:** Wenn du Wartung, Sicherheits‑ oder Versionsupdates durchführst oder der Nutzer danach fragt, orientiere dich an diesem Ablauf (Reihenfolge sinnvoll kombinieren, nicht jedes Mal alles zwingen). Nach Änderungen an **App‑Code** oder **`package.json`** gilt weiterhin oben: **`docker compose --profile prod up -d --build web`**.
+
+### 1) Node.js / npm (Next.js‑Repo, `/var/www/Production`)
+
+1. Im Projektroot: `npm audit` auswerten.
+2. Zuerst `npm audit fix` (ohne `--force`), dann bei Bedarf gezielt Overrides in `package.json` (z. B. transitive Pakete wie `hono` / `@hono/node-server`), danach `npm install` / Lockfile konsistent halten.
+3. `npm update` für Patches innerhalb der Semver‑Ranges.
+4. **Node‑Version:** Dockerfile und `web-dev` nutzen **Node 22** (u. a. wegen `@prisma/streams-local`); lokal `.nvmrc` beachten, Setup: `scripts/check-server-tools.sh` (Major 22), README.
+5. Validierung: `npm run build`; bei Docker‑Prod: Image neu bauen (siehe oben).
+
+### 2) Systempakete (Server mit apt)
+
+1. `sudo apt-get update` und `apt list --upgradable` prüfen.
+2. `sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y` ausführen.
+3. Falls Ubuntu **Phased Updates** blockieren:  
+   `sudo DEBIAN_FRONTEND=noninteractive apt-get -o APT::Get::Always-Include-Phased-Updates=true upgrade -y`
+4. Wenn ein **neuer Kernel** installiert ist: Nutzer auf **Reboot** hinweisen bzw. nach Absprache `sudo reboot` (Downtime).
+
+### 3) Docker‑Images (Root‑`docker-compose.yml`)
+
+1. Tags in `docker-compose.yml` mit **Upstream‑Releases** abgleichen (n8n: [Releases](https://github.com/n8n-io/n8n/releases); bei Bedarf `docker compose pull` + `up -d` für betroffene Services).
+2. Nach **Docker‑Engine‑Updates** ggf. `sudo systemctl restart docker` und Stack prüfen.
+
+### 4) Supabase Self‑Hosted (`docker/supabase/`)
+
+1. Image‑Tags mit [offiziellem Supabase‑Docker](https://github.com/supabase/supabase/tree/master/docker) vergleichen; lokale Anpassungen (Ports, Init‑Skripte, `storage-migrations`, Kong 2.8) beachten.
+2. **Kong 2 → 3** ist ein **eigenes Migrationsprojekt** (neuer Entrypoint, Config) – nicht „nebenbei“ ohne Plan.
+3. Nach Compose‑Änderungen: im Ordner `docker/supabase` mit passender `--env-file` `docker compose … up -d`; Health der Container prüfen.
+
+### 5) Festplatte / Docker‑Speicher
+
+1. Bei voller Platte: `docker system df`; sicher reclaimbar oft **Build‑Cache**:  
+   `docker builder prune -af`
+2. Ungenutzte Images (kein laufender Container):  
+   `docker image prune -a -f`  
+   **Nicht** Projekt‑`backups/`, DB‑Volumes oder `docker/supabase/volumes/db/data` löschen, sofern nicht ausdrücklich gewünscht.
+3. Optionales lokales Artefakt: `.next` im Repo‑Root ist regenerierbar (`npm run build` / Docker‑Build).
+
+### 6) Backups unter `backups/`
+
+1. **Retention 90 Tage** (Dateien nach `mtime`): Skript `scripts/prune-backups.sh`  
+   - manuell / Makefile: `make prune-backups`  
+   - Cron: `/etc/cron.d/production-prune-backups` (täglich 03:00, Log `/var/log/prune-backups.log`)
+2. Anpassung: Umgebungsvariablen `BACKUP_DIR`, `RETENTION_DAYS`.
+
+### 7) Kurz‑Checkliste nach Wartung
+
+- `npm audit` → 0 oder dokumentierte Restrisiken  
+- `docker compose`‑Services / Healthchecks  
+- `/api/health` (Web)  
+- Bei Kernel‑Update: Reboot erledigt oder geplant  
+
+---
+
 ## Voraussetzungen
 - Repo geklont, `.env` via `make setup` erstellt (Vorlage & Meta-Daten: `env.template`)
 - Stack läuft: `docker compose up -d --build`

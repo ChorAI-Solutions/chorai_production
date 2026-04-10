@@ -1,4 +1,4 @@
-.PHONY: help pull dev dev-n8n dev-down dev-restart dev-logs env-dev rebuild-dev prod prod-n8n prod-down prod-restart prod-logs env-prod rebuild-prod n8n-logs update-n8n n8n-update lint type format studio migrate setup setup-dev setup-prod setup-env post-setup switch-remote bootstrap-remote reset-dev-db-volume clean-prod supabase-up supabase-down supabase-restart supabase-update supabase-logs supabase-reset clean-docker check-updates
+.PHONY: help pull dev dev-n8n dev-down dev-restart dev-logs env-dev rebuild-dev prod prod-n8n prod-down prod-restart prod-logs env-prod rebuild-prod n8n-logs update-n8n n8n-update lint type format studio migrate setup setup-dev setup-prod setup-env post-setup switch-remote bootstrap-remote reset-dev-db-volume clean-prod supabase-up supabase-down supabase-restart supabase-update supabase-logs supabase-reset clean-docker check-updates prune-backups
 
 COMPOSE ?= docker compose
 SUPABASE_COMPOSE ?= docker compose -f docker/supabase/docker-compose.yml
@@ -47,6 +47,7 @@ help:
 	@echo "  make supabase-reset - Führt docker/supabase/reset.sh aus (löscht Daten!)"
 	@echo "  make clean-docker  - Stoppt alle Container & entfernt Volumes (außer n8n-Daten)"
 	@echo "  make check-updates - Prüft System-Updates und validiert docker-compose.yml"
+	@echo "  make prune-backups - Löscht Dateien in backups/ älter als 90 Tage (wie Cron)"
 	@echo "  make switch-remote - Setzt das Git-Remote (Standard-Name: origin)"
 	@echo "  make pull          - Führt git pull für den aktuellen Branch aus"
 	@echo "  make lint          - Führt npm run lint im web-dev Container aus"
@@ -222,6 +223,9 @@ supabase-reset:
 
 check-updates:
 	@bash scripts/check-updates.sh docker-compose.yml
+
+prune-backups:
+	@bash scripts/prune-backups.sh
 
 clean-docker:
 	@echo "🛑 Stoppe alle Compose-Stacks (dev/prod/n8n) ohne Volumes zu löschen …"
