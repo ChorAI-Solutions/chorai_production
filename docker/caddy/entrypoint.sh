@@ -4,6 +4,7 @@ set -eu
 SITE_DOMAIN=${SITE_DOMAIN:-}
 ACME_EMAIL=${ACME_EMAIL:-}
 N8N_DOMAIN=${N8N_DOMAIN:-}
+PORTFOLIO_DOMAIN=${PORTFOLIO_DOMAIN:-}
 SUPABASE_DOMAIN=${SUPABASE_DOMAIN:-}
 SUPABASE_KONG_HOST=${SUPABASE_KONG_HOST:-}
 SUPABASE_KONG_PORT=${SUPABASE_KONG_PORT:-8000}
@@ -42,6 +43,16 @@ cat <<EOF >>/etc/caddy/Caddyfile
 https://${N8N_DOMAIN} {
     encode gzip
     reverse_proxy n8n:5678
+}
+EOF
+fi
+
+if [ -n "$PORTFOLIO_DOMAIN" ]; then
+cat <<EOF >>/etc/caddy/Caddyfile
+
+https://${PORTFOLIO_DOMAIN} {
+    encode gzip
+    reverse_proxy portfolio:3001
 }
 EOF
 fi

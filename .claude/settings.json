@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//etc/**)",
+      "Bash(sudo ls *)",
+      "Read(//usr/local/kong/**)",
+      "Bash(docker exec *)",
+      "Read(//var/www/**)",
+      "Bash(git clone *)",
+      "Bash(npm ci *)",
+      "Bash(npm run *)",
+      "Bash(docker compose *)"
+    ]
+  }
+}

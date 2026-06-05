@@ -1,4 +1,4 @@
-.PHONY: help pull dev dev-n8n dev-down dev-restart dev-logs env-dev rebuild-dev prod prod-n8n prod-down prod-restart prod-logs env-prod rebuild-prod n8n-logs update-n8n n8n-update lint type format studio migrate setup setup-dev setup-prod setup-env post-setup switch-remote bootstrap-remote reset-dev-db-volume clean-prod supabase-up supabase-down supabase-restart supabase-update supabase-logs supabase-reset clean-docker check-updates prune-backups
+.PHONY: help pull dev dev-n8n dev-down dev-restart dev-logs env-dev rebuild-dev prod prod-n8n prod-down prod-restart prod-logs env-prod rebuild-prod n8n-logs update-n8n n8n-update lint type format studio migrate setup setup-dev setup-prod setup-env post-setup switch-remote bootstrap-remote reset-dev-db-volume clean-prod supabase-up supabase-down supabase-restart supabase-update supabase-logs supabase-reset clean-docker clean-system check-updates check-system-updates prune-backups
 
 COMPOSE ?= docker compose
 SUPABASE_COMPOSE ?= docker compose -f docker/supabase/docker-compose.yml
@@ -46,6 +46,7 @@ help:
 	@echo "  make supabase-logs - Zeigt Logs des Supabase-Stacks (konfigurierbar via SERVICE=name)"
 	@echo "  make supabase-reset - Führt docker/supabase/reset.sh aus (löscht Daten!)"
 	@echo "  make clean-docker  - Stoppt alle Container & entfernt Volumes (außer n8n-Daten)"
+	@echo "  make clean-system  - Vollständiger Cleanup: Docker Dangling Images/Volumes + npm cache + alte Backups"
 	@echo "  make check-updates - Prüft System-Updates und validiert docker-compose.yml"
 	@echo "  make prune-backups - Löscht Dateien in backups/ älter als 90 Tage (wie Cron)"
 	@echo "  make switch-remote - Setzt das Git-Remote (Standard-Name: origin)"
@@ -172,8 +173,8 @@ n8n-logs:
 	$(COMPOSE) logs -f n8n
 
 update-n8n:
-	$(COMPOSE) $(N8N_PROFILE) pull n8n
-	$(COMPOSE) $(N8N_PROFILE) up -d n8n
+	docker pull n8nio/n8n:latest
+	N8N_IMAGE=n8nio/n8n:latest $(COMPOSE) $(N8N_PROFILE) up -d --force-recreate n8n
 
 n8n-update: update-n8n
 
@@ -224,8 +225,35 @@ supabase-reset:
 check-updates:
 	@bash scripts/check-updates.sh docker-compose.yml
 
+check-system-updates:
+	sudo apt-get update -y && sudo apt-get upgrade -y
+
 prune-backups:
 	@bash scripts/prune-backups.sh
+
+clean-system:
+	@echo "🧹 Starte vollständigen System-Cleanup …"
+	@$(MAKE) --no-print-directory clean-docker
+	@echo ""
+	@echo "🛑 Entferne alte Docker-Images (dangling images) …"
+	@docker image prune -f --filter "dangling=true" || true
+	@echo ""
+	@echo "🛑 Entferne unbenutzte Docker-Volumes …"
+	@docker volume prune -f || true
+	@echo ""
+	@echo "🛑 Entferne unbenutzte Docker-Networks …"
+	@docker network prune -f || true
+	@echo ""
+	@echo "🧹 Leere npm cache …"
+	@npm cache clean --force 2>/dev/null || true
+	@echo ""
+	@echo "🧹 Bereinige alte Backups (älter als 90 Tage) …"
+	@$(MAKE) --no-print-directory prune-backups
+	@echo ""
+	@echo "📊 Docker Disk-Usage …"
+	@docker system df
+	@echo ""
+	@echo "✅ System-Cleanup abgeschlossen!"
 
 clean-docker:
 	@echo "🛑 Stoppe alle Compose-Stacks (dev/prod/n8n) ohne Volumes zu löschen …"
