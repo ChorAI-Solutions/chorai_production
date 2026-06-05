@@ -48,9 +48,15 @@ EOF
 fi
 
 if [ -n "$PORTFOLIO_DOMAIN" ]; then
+  PORTFOLIO_ROOT=${PORTFOLIO_DOMAIN#www.}
 cat <<EOF >>/etc/caddy/Caddyfile
 
-https://${PORTFOLIO_DOMAIN} {
+https://${PORTFOLIO_ROOT} {
+    encode gzip
+    reverse_proxy portfolio:3001
+}
+
+https://www.${PORTFOLIO_ROOT} {
     encode gzip
     reverse_proxy portfolio:3001
 }
