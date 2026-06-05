@@ -1,0 +1,48 @@
+<section class="privacyPolicy-section">
+    <div class="privacyPolicy-wrapper">
+        <div class="back-arrow-left" (click)="goHome()"></div>
+        <h2>{{ 'privacy.title' | translate }}</h2>
+
+        <h4>{{ 'privacy.section1_heading' | translate }}</h4>
+        <h3>{{ 'privacy.general_heading' | translate }}</h3>
+        <p>{{ 'privacy.general_text' | translate }}</p>
+
+        <h3>{{ 'privacy.collection_heading' | translate }}</h3>
+        <p>{{ 'privacy.collection_text' | translate }}</p>
+
+        <h4>{{ 'privacy.section2_heading' | translate }}</h4>
+        <h3>{{ 'privacy.responsible_heading' | translate }}</h3>
+        <p>{{ 'privacy.responsible_text1' | translate }}</p>
+        <p [innerHTML]="'privacy.responsible_text2' | translate"></p>
+        <p>{{ 'privacy.responsible_text3' | translate }}</p>
+
+        <h3>{{ 'privacy.withdrawal_heading' | translate }}</h3>
+        <p>{{ 'privacy.withdrawal_text' | translate }}</p>
+
+        <h3>{{ 'privacy.complaint_heading' | translate }}</h3>
+        <p>{{ 'privacy.complaint_text' | translate }}</p>
+
+        <h3>{{ 'privacy.access_heading' | translate }}</h3>
+        <p>{{ 'privacy.access_text' | translate }}</p>
+
+        <h4>{{ 'privacy.section3_heading' | translate }}</h4>
+        <h3>{{ 'privacy.hosting_heading' | translate }}</h3>
+        <p>{{ 'privacy.hosting_text' | translate }}</p>
+        <ul>
+            @for (item of 'privacy.hosting_list' | translate; track item) {
+                <li>{{ item }}</li>
+            }
+        </ul>
+        <p>{{ 'privacy.hosting_text2' | translate }}</p>
+
+        <h3>{{ 'privacy.contactform_heading' | translate }}</h3>
+        <p>{{ 'privacy.contactform_text1' | translate }}</p>
+        <p>{{ 'privacy.contactform_text2' | translate }}</p>
+        <ul>
+            @for (item of 'privacy.contactform_list' | translate; track item) {
+                <li>{{ item }}</li>
+            }
+        </ul>
+        <p>{{ 'privacy.contactform_text3' | translate }}</p>
+    </div>
+</section>

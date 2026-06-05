@@ -1,0 +1,135 @@
+{
+  "nav": {
+    "whyme": "Why Me",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "header": {
+    "developer": "KI SOFTWAREDEVELOPER"
+  },
+  "whyme": {
+    "title": "Why Me",
+    "located_span": "I am",
+    "located_rest": "located in Bückeburg, Germany",
+    "text": "As a developer, I bring a unique blend of creativity and technical expertise to the table. With a strong background in web development and a passion for problem-solving, I am dedicated to crafting innovative solutions that not only meet but exceed client expectations."
+  },
+  "skills": {
+    "title": "My Skills",
+    "learning": "I am currently learning"
+  },
+  "projects": {
+    "title": "My Projects",
+    "tab": "Project",
+    "about": "About the project",
+    "work_process": "How I have organised my work process",
+    "group_work": "My group work experience",
+    "technologies": "Technologies",
+    "live": "Live Test",
+    "github": "GitHub",
+    "items": [
+      {
+        "name": "El Polo Loco",
+        "duration": "Duration: 3 weeks",
+        "about": "A 2D jump-and-run game built with vanilla JavaScript.",
+        "workProcess": "Structured with OOP classes for each game element.",
+        "groupWork": "Solo project — full game logic, animations and level design."
+      },
+      {
+        "name": "Join",
+        "duration": "Duration: 4 weeks",
+        "about": "A Kanban-based task management tool with drag & drop.",
+        "workProcess": "Built with Angular, Firebase backend and real-time updates.",
+        "groupWork": "Team project with 3 devs. I built the board view and drag & drop."
+      },
+      {
+        "name": "Pokédex",
+        "duration": "Duration: 2 weeks",
+        "about": "A Pokédex app fetching data from the PokéAPI.",
+        "workProcess": "Vanilla JS with REST API and lazy loading.",
+        "groupWork": "Solo project — API integration, UI and responsive layout."
+      }
+    ]
+  },
+  "references": {
+    "title": "Need a teamplayer?",
+    "subtitle": "Here's what my colleagues say about me",
+    "project": "Project"
+  },
+  "contact": {
+    "title": "Contact me",
+    "text": "Encourage people to contact you and describe what role you are interested in. Show that you will add value to their projects through your work. Example: Feel free to get in touch with job offers or opportunities such as: ...",
+    "mobile_heading": "Let us work together!",
+    "name_label": "Your name",
+    "email_label": "Your e-mail",
+    "message_label": "Your message",
+    "name_placeholder": "Your name (min. 5 characters)",
+    "email_placeholder": "Your e-mail (e.g. name@example.com)",
+    "message_placeholder": "Your message (min. 10 characters)",
+    "error_name": "Your name is required.",
+    "error_email": "Your e-mail is not valid.",
+    "error_message": "Your text is not valid.",
+    "privacy": "I've read the",
+    "privacy_link": "privacy policy",
+    "privacy_end": "and agree to the processing of my data as outlined.",
+    "send": "Send"
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy",
+    "copyright": "© Waldemar Chorow 2026"
+  },
+  "imprint": {
+    "title": "Legal Notice / Impressum",
+    "section1_heading": "Information according to § 5 DDG (German Digital Services Act)",
+    "section1_text": "Waldemar Chorow <br>Schulbrink 18 <br>31675 Bückeburg <br>NDS, Germany",
+    "contact_heading": "Contact",
+    "contact_text": "Phone: +49 176 471 761 54 <br>Email: chorow.w@gmail.com",
+    "image_heading": "Image Credits and Copyright",
+    "image_text": "The graphics and shapes used on this website were provided to me by the Developer Akademie and remain the property of the Developer Akademie. Any further use or reproduction by third parties is not permitted without the express consent of the copyright holder.",
+    "eu_heading": "EU Dispute Resolution",
+    "eu_text1": "The European Commission provides a platform for online dispute resolution (ODR): https://ec.europa.eu/consumers/odr",
+    "eu_text2": "You can find my email address in the legal notice above.",
+    "arbitration_heading": "Consumer Dispute Resolution/Universal Arbitration Board",
+    "arbitration_text": "I am not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "section1_heading": "1. Privacy at a Glance",
+    "general_heading": "General Information",
+    "general_text": "The following notes provide a simple overview of what happens to your personal data when you visit this website. Personal data is any data by which you can be personally identified.",
+    "collection_heading": "Data Collection on This Website",
+    "collection_text": "The data processing on this website is carried out by the website operator. You can find their contact details in the \"Information on the Responsible Party\" section of this privacy policy.",
+    "section2_heading": "2. General Information and Mandatory Information",
+    "responsible_heading": "Information on the Responsible Party (Controller)",
+    "responsible_text1": "The responsible party for data processing on this website is:",
+    "responsible_text2": "Waldemar Chorow <br>Schulbrink 18 <br>31675 Bückeburg <br>NDS, Germany <br>Email: chorow.w@gmail.com",
+    "responsible_text3": "The responsible party (controller) is the natural or legal person who alone or jointly with others decides on the purposes and means of processing personal data (e.g., names, email addresses, etc.).",
+    "withdrawal_heading": "Withdrawal of Your Consent to Data Processing",
+    "withdrawal_text": "Many data processing operations are only possible with your express consent. You can withdraw consent you have already given at any time. An informal email notification to me is sufficient for this purpose. The legality of the data processing carried out up to the point of withdrawal remains unaffected by the withdrawal.",
+    "complaint_heading": "Right to Lodge a Complaint with the Competent Supervisory Authority",
+    "complaint_text": "In the event of violations of the GDPR, data subjects have the right to lodge a complaint with a supervisory authority, in particular in the Member State of their habitual residence, place of work, or the place of the alleged violation.",
+    "access_heading": "Right to Access, Rectification, and Erasure",
+    "access_text": "Within the framework of the applicable legal provisions, you have the right at any time to free information about your stored personal data, its origin and recipient, and the purpose of the data processing and, if applicable, a right to rectification or erasure of this data.",
+    "section3_heading": "3. Data Collection on This Website",
+    "hosting_heading": "Hosting and Server Log Files",
+    "hosting_text": "The provider of the pages automatically collects and stores information in so-called server log files, which your browser automatically transmits to us. These are:",
+    "hosting_list": [
+      "Browser type and browser version",
+      "Operating system used",
+      "Referrer URL (the previously visited page)",
+      "Hostname of the accessing computer",
+      "Time of the server request",
+      "IP address"
+    ],
+    "hosting_text2": "This data is not merged with other data sources. The collection of this data is based on Art. 6(1)(f) GDPR. The website operator has a legitimate interest in the technically error-free presentation and optimization of their website – the server log files must be recorded for this purpose.",
+    "contactform_heading": "Contact Form",
+    "contactform_text1": "If you send me inquiries via the contact form, your details from the inquiry form, including the contact details you provided there (name, email address, and, if applicable, your message), will be stored by me for the purpose of processing the inquiry and in the event of follow-up questions. I will not share this data without your consent.",
+    "contactform_text2": "The processing of this data is based on:",
+    "contactform_list": [
+      "Art. 6(1)(b) GDPR, provided that your request is related to the fulfillment of a contract or is necessary for the execution of pre-contractual measures (e.g., project inquiries, job interviews).",
+      "In all other cases, the processing is based on my legitimate interest in the effective processing of requests addressed to me (Art. 6(1)(f) GDPR)."
+    ],
+    "contactform_text3": "The data you enter in the contact form will remain with me until you request its erasure, withdraw your consent to its storage, or the purpose for storing the data no longer applies (e.g., after your request has been fully processed). Mandatory statutory provisions – in particular statutory retention periods – remain unaffected."
+  }
+}

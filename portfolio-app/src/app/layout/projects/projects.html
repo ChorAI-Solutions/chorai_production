@@ -1,0 +1,67 @@
+<section class="projectsSection" id="projects">
+  <div class="projectsSection-wrapper">
+    <h2>{{ 'projects.title' | translate }}</h2>
+    <div class="projectTabs">
+      @for (project of projects; track project.image; let i = $index) {
+        <button class="tabBtn" [class.active]="activeIndex === i" (click)="setActive(i)">
+          {{ i + 1 }}. {{ 'projects.tab' | translate }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="projectContent-wrapper">
+    <div class="projectContent">
+
+      <h3 class="projectName">{{ getProjectKey(activeIndex, 'name') | translate }}</h3>
+
+      <div class="projectInfo">
+        <div class="infoBlock">
+          <div class="infoBlock-header">
+            <img class="dot" src="/assets/icons/projekts-dot.svg" alt="" />
+            <h3>{{ 'projects.about' | translate }} <span class="duration">{{ getProjectKey(activeIndex, 'duration') | translate }}</span></h3>
+          </div>
+          <p>{{ getProjectKey(activeIndex, 'about') | translate }}</p>
+        </div>
+        <div class="infoBlock">
+          <div class="infoBlock-header">
+            <img class="dot" src="/assets/icons/projekts-dot.svg" alt="" />
+            <h3>{{ 'projects.work_process' | translate }}</h3>
+          </div>
+          <p>{{ getProjectKey(activeIndex, 'workProcess') | translate }}</p>
+        </div>
+        <div class="infoBlock">
+          <div class="infoBlock-header">
+            <img class="dot" src="/assets/icons/projekts-dot.svg" alt="" />
+            <h3>{{ 'projects.group_work' | translate }}</h3>
+          </div>
+          <p>{{ getProjectKey(activeIndex, 'groupWork') | translate }}</p>
+        </div>
+      </div>
+
+      <div class="projectPreview">
+        <div class="technologies">
+          <p class="techLabel">{{ 'projects.technologies' | translate }}</p>
+          <p class="techText">{{ 'projects.technologies' | translate }}: {{ getTechNames(projects[activeIndex].technologies) }}</p>
+          <p class="durationMobile">{{ getProjectKey(activeIndex, 'duration') | translate }}</p>
+          <div class="techIcons">
+            @for (tech of projects[activeIndex].technologies; track tech.alt) {
+              <img [src]="tech.src" [alt]="tech.alt" />
+            }
+          </div>
+        </div>
+        <img
+          class="projectImage"
+          [src]="projects[activeIndex].image"
+          [alt]="getProjectKey(activeIndex, 'name') | translate"
+        />
+        <div class="projectButtons">
+          <a [href]="projects[activeIndex].liveLink" class="btnLive" target="_blank">{{ 'projects.live' | translate }}</a>
+          <a [href]="projects[activeIndex].githubLink" class="btnGit" target="_blank">{{ 'projects.github' | translate }}</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

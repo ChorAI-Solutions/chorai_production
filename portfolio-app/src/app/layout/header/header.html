@@ -1,0 +1,39 @@
+<header>
+  <section class="hero-section">
+    <section class="foto-section" [class.menu-open]="isMobileMenuOpen()">
+      <div class="foto-section-bg"></div>
+      @if (isMobileMenuOpen()) {
+      <nav class="foto-menu">
+        <ul>
+          <li><a (click)="navigateTo('whyme')">{{ 'nav.whyme' | translate }}</a></li>
+          <li><a (click)="navigateTo('skills')">{{ 'nav.skills' | translate }}</a></li>
+          <li><a (click)="navigateTo('projects')">{{ 'nav.projects' | translate }}</a></li>
+          <li><a (click)="navigateTo('contact')">{{ 'nav.contact' | translate }}</a></li>
+        </ul>
+        <div class="foto-menu-language">
+          <div class="language-option" [class.active]="lang.currentLang() === 'de'" (click)="lang.use('de')">DE</div>
+          <div class="language-option" [class.active]="lang.currentLang() === 'en'" (click)="lang.use('en')">EN</div>
+        </div>
+      </nav>
+      } @else {
+      <img src="assets/images/foto-me.png" alt="foto from waldemar chorow">
+      }
+    </section>
+    <section class="headline-section">
+      <section class="logo-link-section">
+        <div class="empty-section"></div>
+        <img src="assets/images/logo-default.png" alt="Logo">
+        <section class="links-section">
+          <a href="mailto:waldemar.chorow@gmail.com" class="email-link"></a>
+          <a href="https://www.linkedin.com/in/waldemar-chorow-11460a31b/" target="_blank" class="linkedin-link"></a>
+          <a href="https://github.com/WaldemarChorow" target="_blank" class="github-link"></a>
+        </section>
+      </section>
+      <section class="name-section">
+        <h1>Waldemar Chorow</h1>
+        <p>{{ 'header.developer' | translate }}</p>
+      </section>
+      <div class="arrowdown" (click)="scrollToWhyMe()"></div>
+    </section>
+  </section>
+</header>

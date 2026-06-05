@@ -1,0 +1,18 @@
+<section class="whyMeSection" id="whyme">
+    <div class="whyMeSection-wrapper">
+        <h2>{{ 'whyme.title' | translate }}</h2>
+        <div class="whyMeContent">
+            <div class="location">
+                <div class="locationIcon">
+                    <img class="icon-desktop" src="assets/icons/location-icon.svg" alt="location icon">
+                    <img class="icon-mobile" src="assets/icons/location-icon-mobile.svg" alt="location icon">
+                </div>
+                <p><span>{{ 'whyme.located_span' | translate }}</span> {{ 'whyme.located_rest' | translate }}</p>
+            </div>
+            <div class="whyMeText">
+                <p>{{ 'whyme.text' | translate }}</p>
+                <button class="letsTalkBtn" (click)="scroll.scrollTo('contact')"></button>
+            </div>
+        </div>
+    </div>
+</section>

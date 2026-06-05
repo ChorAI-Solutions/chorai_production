@@ -1,0 +1,168 @@
+@import '../../abstract/mixins.scss';
+@import '../../base/fonts.scss';
+
+
+.reference-MainSection {
+    width: 100%;
+    @include flex-center-center;
+}
+
+.ref-sec-wrapper {
+    max-width: 1440px;
+    @include flex-center-column;
+    align-items: flex-start;
+    @include margin-top-bottom;
+    @include page-gutter;
+    margin-bottom: 0;
+}
+
+h4 {
+    @include h4;
+    margin-bottom: 10px;
+    padding-left: 25px;
+}
+
+.ref-subtitle {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #ffffff;
+
+    margin-bottom: 50px;
+    padding-left: 25px;
+  
+}
+
+.references-content {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 1300px;
+    padding-bottom: 10px;
+
+    .reference-single {
+        flex-shrink: 0;
+    }
+
+    &:hover {
+        &::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #2D383F;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #89BCD9;
+            border-radius: 10px;
+        }
+    }
+
+}
+
+.reference-single {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    @include flex-center-column;
+    background-image: url(/assets/images/shape-ref-default.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    &:hover {
+        background-image: url(/assets/images/shape-ref-hover.svg);
+    }
+}
+
+h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    color: #F8F5EC;
+    font-size: 26px;
+    padding: 0;
+    margin: 5px;
+}
+
+
+p {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    color: #F8F5EC;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #89BCD9;
+    padding: 0;
+    margin: 0;
+}
+
+.reference-text {
+    width: 290px;
+    height: 120px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    color: #F8F5EC;
+    font-size: 18px;
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #89BCD9;
+    padding: 0;
+    margin: 0;
+}
+
+@include mobile {
+    .h4-sub {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px){
+    .reference-single{
+        align-items: flex-start;
+        padding-left: 50px;
+        width: 290px;
+        height: 290px;
+        margin-left: 20px;
+        background-image: url(/assets/images/ref-bg-mobile.svg);
+
+        &:hover {
+            background-image: url(/assets/images/ref-bg-mobile.svg);
+        }
+    }
+
+    .ref-sec-wrapper{
+        padding: 0;
+    }
+
+    .references-content{
+        gap: 0;
+    }
+
+    h3{
+        font-size: 24px;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .reference-text{
+        font-size: 16px;
+        text-align: start;
+    }
+}

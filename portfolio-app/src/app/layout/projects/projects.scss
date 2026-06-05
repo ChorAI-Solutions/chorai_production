@@ -1,0 +1,320 @@
+@import '../../abstract/mixins.scss';
+@import '../../base/fonts.scss';
+
+.projectsSection {
+    width: 100%;
+    @include flex-center-column;
+}
+
+.projectsSection-wrapper {
+    width: 100%;
+    max-width: 1440px;
+    @include flex-center-column;
+}
+
+h2 {
+    @include h2;
+}
+
+// Nur auf Mobile sichtbar
+.projectName {
+    display: none;
+}
+
+.techText {
+    display: none;
+}
+
+.durationMobile {
+    display: none;
+}
+
+.projectTabs {
+    display: flex;
+    max-width: 1200px;
+    height: 100px;
+    @include page-gutter;
+}
+
+.tabBtn {
+    width: 250px;
+    height: 100px;
+    background: none;
+    border: none;
+    color: #89BCD9;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 30px 30px 0 0;
+    transition: background-color 0.3s ease;
+
+    &.active {
+        background-color: #2D383F;
+        color: #fff;
+    }
+
+    &:hover:not(.active) {
+
+        color: #fff;
+    }
+}
+
+.projectContent-wrapper {
+    width: 100%;
+    background-color: #2D383F;
+    display: flex;
+    justify-content: center;
+}
+
+.projectContent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #2D383F;
+    padding: 30px 25px;
+}
+
+.projectInfo {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    gap: 30px;
+}
+
+.infoBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.infoBlock-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.dot {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  margin-right: 10px;
+}
+
+.infoBlock h3 {
+    @include h3;
+    margin: 0 0 8px 0;
+}
+
+.duration {
+    font-size: 18px;
+    font-weight: 400;
+    color: #89BCD9;
+    margin-left: 10px;
+}
+
+.infoBlock p {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    padding-left: 51px;
+}
+
+.projectPreview {
+    @include flex-center-column;
+    gap: 15px;
+    width: 460px;
+}
+
+.technologies {
+    width: 100%;
+    text-align: center;
+
+    p {
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        color: #fff;
+        margin: 0 0 10px 0;
+    }
+}
+
+.techIcons {
+    @include flex-center-center;
+    gap: 25px;
+
+
+    img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+    }
+}
+
+.projectImage {
+    width: 450px;
+    height: 310px;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.projectButtons {
+    display: flex;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+.btnLive {
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: 2px solid #89BCD9;
+    color:  #2D383F;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #89BCD9;
+
+    &:hover {
+        transition: background-color 0.3s ease, color 0.3s ease;
+        background-color: transparentize($color: #ffffff, $amount: 0.0);
+        border: 2px solid #ffffff;
+    }
+}
+
+.btnGit {
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: 2px solid #89BCD9;
+    color:  #89BCD9;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+        color: #89BCD9;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        background-color: transparentize($color: #ffffff, $amount: 0.8);
+    }
+}
+
+
+@media (max-width:1023px) {
+
+    .projectTabs {
+        height: auto;
+    }
+
+    .tabBtn {
+        flex: 1;
+        height: 39px;
+        font-size: 18px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .projectContent {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    .projectInfo,
+    .projectPreview {
+        display: contents;
+    }
+
+    .projectName {
+        display: block;
+        order: 1;
+        width: 100%;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        color: #89BCD9;
+        margin: 0 0 10px 0;
+    }
+
+    .technologies {
+        order: 2;
+        width: 100%;
+        text-align: left;
+    }
+
+    .techLabel {
+        display: none;
+    }
+
+    .techIcons {
+        display: none;
+    }
+
+    .technologies p.techText {
+        display: block;
+        font-size: 14px;
+        color: #89BCD9;
+        margin: 0;
+    }
+
+    .technologies p.durationMobile {
+        display: block;
+        font-size: 14px;
+        color: #89BCD9;
+        margin: 4px 0 0 0;
+    }
+
+    .projectImage {
+        order: 3;
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+        margin: 20px 0px;
+    }
+
+    .infoBlock {
+        order: 4;
+        width: 100%;
+        margin-bottom: 15px;
+
+        p {
+            font-size: 16px;
+            padding-left: 0;
+        }
+    }
+
+    .infoBlock-header {
+        align-items: center;
+        gap: 0px;
+        h3 {
+            font-size: 18px;
+            color: #89BCD9;
+            margin: 0;
+        }
+    }
+
+    .duration {
+        display: none;
+    }
+
+    .projectButtons {
+        order: 7;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btnLive,
+    .btnGit {
+        width: 116px;
+        height: 43px;
+        font-size: 14px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

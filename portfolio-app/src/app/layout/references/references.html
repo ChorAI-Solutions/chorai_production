@@ -1,0 +1,18 @@
+<section class="reference-MainSection">
+  <div class="ref-sec-wrapper">
+    <h4>{{ 'references.title' | translate }}</h4>
+    <p class="ref-subtitle">{{ 'references.subtitle' | translate }}</p>
+    <div class="references-content">
+      @for (reference of references; track reference.id) {
+        <div class="reference-single">
+          <h3>{{ reference.name }}</h3>
+          <p>
+            {{ 'references.project' | translate }}<span> {{ reference.project }}</span>
+          </p>
+          <p class="reference-text">{{ reference.text }}</p>
+          <a [href]="reference.linkedInLink">LinkedIn</a>
+        </div>
+      }
+    </div>
+  </div>
+</section>

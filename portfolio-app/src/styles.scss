@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Anta';
+  src: url('/assets/fonts/Anta/Anta-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/assets/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/assets/fonts/Josefin_Sans/static/JosefinSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@import './app/abstract/mixins.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+    @include flex-center-column;
+    background-color: #252d33;
+    padding: 0%;
+    margin: 0%;
+}
+
+app-root {
+  width: 100%;
+  
+}

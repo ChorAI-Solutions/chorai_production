@@ -1,0 +1,45 @@
+@import '../abstract/mixins.scss';
+
+@mixin h1 {
+  font-family: 'Anta', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  font-size: 88px;
+  margin: 20px 0;
+}
+
+@mixin h2 {
+  font-family: 'Anta', sans-serif;
+  font-weight: 400;
+  color: #89BCD9;
+  font-size: 60px;
+  margin-bottom: 80px;
+
+  @include mobile {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+}
+
+@mixin h3{
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  color: #F8F5EC;
+  font-size: 28px;
+}
+
+@mixin h4{
+  color: #89BCD9;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+}
+
+@mixin p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+  color: #fff;
+  font-size: 40px;
+  margin: 20px 0;
+}
+

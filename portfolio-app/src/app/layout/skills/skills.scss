@@ -1,0 +1,185 @@
+@import '../../abstract/mixins.scss';
+@import '../../base/fonts.scss';
+
+.mySkillsSection {
+    width: 100%;
+    @include flex-center-column;
+    @include margin-top-bottom;
+}
+
+.mySkillsSection-wrapper {
+    @include flex-center-column;
+    @include page-gutter;
+    max-width: 860px;
+
+}
+
+h2 {
+    @include h2;
+}
+
+.skillsContent {
+    width: 100%;
+    display: flex;
+    gap: 50px;
+}
+
+.skillsImages{
+    width: 455px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+
+    figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+        width: 80px;
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+
+    figcaption {
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        color: #89BCD9;
+        text-align: center;
+    }
+}
+
+.skillsText {
+        width: 380px;
+        height: 380px;
+        @include flex-center-column;
+        text-align: center;
+        background-image: url(/assets/images/shape-learning-default.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        gap: 15px;
+
+        &:hover{
+            background-image: url(/assets/images/shape-learning-hover.svg);
+        }
+    p {
+        font-family: Josefin Sans, sans-serif;
+        font-weight: 400;
+        color: #fff;
+        width: 100%;
+        font-size: 16px;
+        margin: 0;
+    }
+}
+
+.learningSkill-images{
+    display: flex;
+    gap: 15px;
+}
+
+.letsTalkBtn-mobile {
+    display: none;
+}
+
+@media (max-width:1024px){
+    .mySkillsSection-wrapper{
+        align-items: center;
+        justify-content: center;
+    }
+
+    .skillsContent{
+        display: contents;
+        flex-direction: column;
+        align-self: center;
+        justify-content: center;
+    }
+
+    .skillsImages {
+        width: 100%;
+        max-width: 455px;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
+
+        figure {
+            width: 55px;
+        }
+
+        img {
+            width: 41px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        figcaption {
+            display: none;
+        }
+    }
+
+    .skillsText {
+        width: 200px;
+        height: 200px;
+        background-image: none;
+        gap: 35px;
+
+        p{
+        color: #89BCD9;
+        font-size: 16px;
+        }
+
+        &:hover {
+            background-image: none;
+        }
+    }
+
+    .learningSkill-images{
+        @include flex-center-center;
+        background-image: url(/assets/images/shape-learning-default.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        width: 113px;
+        height: 96px;
+
+        img{
+            width: 32px;
+        }
+    }
+
+    .letsTalkBtn-mobile {
+        display: block;
+        width: 116px;
+        height: 43px;
+        position: relative;
+        background-image: url(/assets/icons/letstalkbtn-default.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+
+        &:hover {
+            background-image: url(/assets/icons/letstalkbtn-hover.svg);
+        }
+
+        &:active {
+            background-image: url(/assets/icons/letstalkbtn-default.svg);
+        }
+    }
+    
+}
+
+
+
+
+

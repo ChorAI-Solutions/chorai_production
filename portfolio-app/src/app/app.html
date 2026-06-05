@@ -1,0 +1,18 @@
+@if (isHome()) {
+  <app-header></app-header>
+}
+<app-navbar></app-navbar>
+
+<main>
+  <router-outlet />
+  <!-- Nur auf der Startseite anzeigen -->
+  @if (isHome()) {
+    <app-about-me></app-about-me>
+    <app-skills></app-skills>
+    <app-projects></app-projects>
+    <app-references></app-references>
+    <app-contact></app-contact>
+  }
+</main>
+
+<app-footer></app-footer>
