@@ -21,7 +21,7 @@ export class Projects {
   projects: Project[] = [
     {
       technologies: [
-        { src: '/assets/icons/Javascript.svg', alt: 'JavaScript' },
+        { src: '/assets/icons/JavaScript.svg', alt: 'JavaScript' },
         { src: '/assets/icons/HTML.svg', alt: 'HTML' },
         { src: '/assets/icons/CSS.svg', alt: 'CSS' },
       ],
@@ -32,7 +32,7 @@ export class Projects {
     {
       technologies: [
         { src: '/assets/icons/angular.svg', alt: 'Angular' },
-        { src: '/assets/icons/typescript.svg', alt: 'TypeScript' },
+        { src: '/assets/icons/TypeScript.svg', alt: 'TypeScript' },
         { src: '/assets/icons/HTML.svg', alt: 'HTML' },
       ],
       liveLink: '#',
@@ -41,7 +41,7 @@ export class Projects {
     },
     {
       technologies: [
-        { src: '/assets/icons/Javascript.svg', alt: 'JavaScript' },
+        { src: '/assets/icons/JavaScript.svg', alt: 'JavaScript' },
         { src: '/assets/icons/HTML.svg', alt: 'HTML' },
         { src: '/assets/icons/CSS.svg', alt: 'CSS' },
         { src: '/assets/icons/Api.svg', alt: 'Rest API' },

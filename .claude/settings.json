@@ -9,7 +9,18 @@
       "Bash(git clone *)",
       "Bash(npm ci *)",
       "Bash(npm run *)",
-      "Bash(docker compose *)"
+      "Bash(docker compose *)",
+      "Bash(git push *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(nslookup waldemar-chorow.de)",
+      "Bash(curl -sI --resolve waldemar-chorow.de:443:127.0.0.1 https://waldemar-chorow.de)",
+      "Bash(nslookup waldemar-chorow.de 8.8.8.8)",
+      "Bash(nslookup waldemar-chorow.de 1.1.1.1)",
+      "Bash(curl -sI --resolve waldemar-chorow.de:80:127.0.0.1 http://waldemar-chorow.de)",
+      "Bash(curl -sI --resolve chorai.de:80:127.0.0.1 http://chorai.de)",
+      "Read(//run/systemd/resolve/**)",
+      "Bash(getent hosts *)"
     ]
   }
 }

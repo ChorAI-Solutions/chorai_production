@@ -12,13 +12,13 @@ export class Skills {
   scroll = inject(ScrollService);
   skills = [
     {src: '/assets/icons/angular.svg', alt: 'Angular'},
-    {src: '/assets/icons/typescript.svg', alt: 'TypeScript'},
-    {src: '/assets/icons/Javascript.svg', alt: 'JavaScript'},
+    {src: '/assets/icons/TypeScript.svg', alt: 'TypeScript'},
+    {src: '/assets/icons/JavaScript.svg', alt: 'JavaScript'},
     {src: '/assets/icons/HTML.svg', alt: 'HTML'},
     {src: '/assets/icons/CSS.svg', alt: 'CSS'},
     {src: '/assets/icons/Api.svg', alt: 'Rest API'},
-    {src: '/assets/icons/Supabase.svg', alt: 'Supabase'},
-    {src: '/assets/icons/git.svg', alt: 'Git'},
+    {src: '/assets/icons/supabase.svg', alt: 'Supabase'},
+    {src: '/assets/icons/GIT.svg', alt: 'Git'},
     {src: '/assets/icons/materialdesign.svg', alt: 'Material Design'},
     {src: '/assets/icons/SQL.svg', alt: 'SQL'},
     {src: '/assets/icons/Linux.svg', alt: 'Linux'},
