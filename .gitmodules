@@ -1,0 +1,4 @@
+[submodule "portfolio-app"]
+	path = portfolio-app
+	url = git@github.com:WaldemarChorow/portfolio.git
+	branch = master
