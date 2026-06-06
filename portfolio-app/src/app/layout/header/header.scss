@@ -11,9 +11,10 @@ header {
 .hero-section {
     max-width: 1440px;
     @include page-gutter;
+    padding-left: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 5px;
 }
 
@@ -22,41 +23,50 @@ header {
 
     .foto-section-bg {
         position: absolute;
-        bottom: -60px;
+        bottom: -20px;
         left: 0px;
         width: 100%;
-        height: 100%;
+        height: 600px;
         background: url(/assets/images/shape.svg);
         background-repeat: no-repeat;
         background-size: contain;
+        background-position: center;
         transform: rotate(-45deg);
-        z-index: -1;
+
+    }
+
+    &:hover .foto-section-bg {
+        background-image: url(/assets/images/shape-hover.svg);
     }
 
     img {
         position: relative;
-        bottom: -5px;
-        max-width: 535px;
-        max-height: 683px;
+        width: 570px;
+        max-width: 570px;
         object-fit: contain;
+        left: 0px;
+        bottom: -5px;
+        
       
     }
 
     &.menu-open {
-        transform: none;
-        background: #89bcd9;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+        width: 100%;    
+        background: url(/assets/images/shape.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-top: 25px;
 
         &:hover {
-            background: #89bcd9;
+             background: url(/assets/images/shape.svg);
         }
     }
 }
 
 .foto-menu {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,8 +127,8 @@ header {
 }
 
 .headline-section {
-    flex: 1;
-    height: auto;
+
+   flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,6 +136,7 @@ header {
     gap: 10px;
     margin: 0;
     padding: 0;
+    margin-bottom: 150px;
 }
 
 .logo-link-section {
@@ -133,6 +144,7 @@ header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    padding: 0 25px;
 
     >img {
         width: 80px;
@@ -146,11 +158,13 @@ header {
 }
 
 .empty-section {
-    width: calc(33% - 40px);
+   width: 80px;
+   height: 80px;
 }
 
 .links-section {
-    width: calc(33% - 40px);
+    width: 80px;
+    height: auto;
     @include flex-center-column;
     align-items: flex-end;
     gap: 10px;
@@ -221,49 +235,52 @@ p {
 
     &:hover {
         background-image: url(/assets/images/arrowdown-hover.svg);
+        cursor: pointer;
     }
 }
+
+@media (max-width: 1380px) {
+
+    h1{
+        font-size: 78px;
+    }
+}
+
 
 @media (max-width: 1024px) {
     header {
         justify-content: center;
-        padding-top: 104px;
-        height: 100vh;
+        height: calc(100vh + 104px);
     }
 
     .hero-section {
+        height: 100%;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        @include flex-center-column;
+        padding-left: 25px;
         gap: 5px;
-        align-items: center;
-        justify-content: center;
     }
 
     .foto-section {
-        width: 312px;
-        height: 326px;
-        display: flex;
-        max-width: 100%;
+        
 
         .foto-section-bg{
-        transform: rotate(0deg);
-        bottom: -4px;
-    }
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            transform: rotate(0deg);
+            
+        }
 
         img {
-            position: relative;
-            
-            left: -10px;
-            max-width: 485px;
-            max-height: 565px;
-              -webkit-mask-image: url(/assets/images/shape.svg);
-        mask-image: url(/assets/images/shape.svg);
-        mask-size: 95% 100%;
-        mask-repeat: no-repeat;
-        mask-position: center bottom;
+            bottom: -31px;
+            width: 312px;
+            height: 326px;
+            -webkit-mask-image: url(/assets/images/shape.svg);
+            mask-image: url(/assets/images/shape.svg);
+            mask-size: 97% 100%;
+            mask-repeat: no-repeat;
+            mask-position: center bottom;
         }
 
         &:hover .foto-section-bg {
@@ -272,10 +289,11 @@ p {
         }
 
         &.menu-open {
-            width: 312px;
+            
+            width: 311px;
             height: 326px;
-            max-width: 90vw;
-            align-items: center;
+            margin-bottom: -20px;
+            
 
             .foto-section-bg {
                 display: none;
@@ -284,10 +302,18 @@ p {
             &:hover {
                 width: 312px;
                 height: 326px;
+                background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
             }
         }
     }
     
+    .headline-section{
+        flex: 0;
+           margin-bottom: 0px;
+           
+        }
 
     .logo-link-section {
         display: none;
@@ -299,5 +325,17 @@ p {
 
     p {
         font-size: 24px;
+    }
+}
+
+@media (max-width: 450px) {
+
+
+    .name-section h1 {
+        font-size: 32px;
+    }
+
+    .name-section p {
+        font-size: 16px;
     }
 }

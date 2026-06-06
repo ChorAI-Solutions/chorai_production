@@ -5,9 +5,8 @@
     width: 100%;
     @include flex-center-column;
     background-color: #252d33;
-    padding: 30px 0px;
+    padding: 40px 0px;
     position: relative;
-    margin-top: 104px;
 }
 
 .back-arrow-left {
@@ -19,10 +18,8 @@
     background-size: contain;
     cursor: pointer;
     transition: filter 0.3s ease;
-    position: fixed;
-    left: 40px;
-    top: 120px;
-    z-index: 999;
+    position: relative;
+  
 
     &:hover {
         filter: brightness(1.3);
