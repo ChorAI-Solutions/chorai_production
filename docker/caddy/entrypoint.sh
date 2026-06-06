@@ -5,6 +5,8 @@ SITE_DOMAIN=${SITE_DOMAIN:-}
 ACME_EMAIL=${ACME_EMAIL:-}
 N8N_DOMAIN=${N8N_DOMAIN:-}
 PORTFOLIO_DOMAIN=${PORTFOLIO_DOMAIN:-}
+ELPOLOLOCO_DOMAIN=${ELPOLOLOCO_DOMAIN:-}
+POKEDEX_DOMAIN=${POKEDEX_DOMAIN:-}
 SUPABASE_DOMAIN=${SUPABASE_DOMAIN:-}
 SUPABASE_KONG_HOST=${SUPABASE_KONG_HOST:-}
 SUPABASE_KONG_PORT=${SUPABASE_KONG_PORT:-8000}
@@ -59,6 +61,26 @@ https://${PORTFOLIO_ROOT} {
 https://www.${PORTFOLIO_ROOT} {
     encode gzip
     reverse_proxy portfolio:3001
+}
+EOF
+fi
+
+if [ -n "$ELPOLOLOCO_DOMAIN" ]; then
+cat <<EOF >>/etc/caddy/Caddyfile
+
+https://${ELPOLOLOCO_DOMAIN} {
+    encode gzip
+    reverse_proxy elpololoco:3002
+}
+EOF
+fi
+
+if [ -n "$POKEDEX_DOMAIN" ]; then
+cat <<EOF >>/etc/caddy/Caddyfile
+
+https://${POKEDEX_DOMAIN} {
+    encode gzip
+    reverse_proxy pokedex:3003
 }
 EOF
 fi

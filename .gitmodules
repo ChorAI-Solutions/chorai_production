@@ -2,3 +2,11 @@
 	path = portfolio-app
 	url = git@github.com:WaldemarChorow/portfolio.git
 	branch = master
+[submodule "elpololoco"]
+	path = elpololoco
+	url = git@github.com:WaldemarChorow/elpololoco.git
+	branch = main
+[submodule "pokedex"]
+	path = pokedex
+	url = git@github.com:WaldemarChorow/pokedex.git
+	branch = main
