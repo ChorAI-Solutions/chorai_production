@@ -2,14 +2,15 @@
 
 FROM node:22-alpine AS deps
 WORKDIR /app
-COPY package.json package-lock.json* ./
+COPY chorai-app/package.json chorai-app/package-lock.json* ./
 RUN npm ci
 
 FROM node:22-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY chorai-app/ ./
+COPY scripts ./scripts
 # Generate Prisma client for build-time imports
 RUN DATABASE_URL=postgresql://user:pass@localhost:5432/db npx prisma generate --schema=prisma/schema.prisma
 RUN npm run build
@@ -25,7 +26,5 @@ COPY --from=builder /app/app/generated ./app/generated
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/scripts ./scripts
-COPY prisma.config.js ./prisma.config.js
+COPY chorai-app/prisma.config.js ./prisma.config.js
 CMD ["sh", "-c", "node ./scripts/debug-log-proxy.mjs >/dev/null 2>&1 & npx prisma migrate deploy --schema=prisma/schema.prisma || echo 'Prisma migrate skipped (will not block app start)'; node server.js"]
-
-

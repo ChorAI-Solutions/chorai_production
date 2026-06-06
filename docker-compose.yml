@@ -4,7 +4,7 @@ services:
       - prod
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: chorai-app/Dockerfile
     env_file:
       - .env
     environment:
@@ -47,7 +47,7 @@ services:
       N8N_WEBHOOK_URL: http://n8n:5678/webhook/chat
     command: sh -c "npm install && npx prisma migrate deploy --schema=prisma/schema.prisma && npm run dev"
     volumes:
-      - ./:/app
+      - ./chorai-app:/app
       - web-dev-node-modules:/app/node_modules
     ports:
       - "3000:3000"

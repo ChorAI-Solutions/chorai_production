@@ -1,7 +1,14 @@
 node_modules
+**/node_modules
 .next
+**/.next
 .git
+**/.git
 Dockerfile
 npm-debug.log
 .env
 .env.*
+portfolio-app
+elpololoco
+pokedex
+backups
