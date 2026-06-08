@@ -14,5 +14,5 @@ COPY public ./public
 
 EXPOSE 8080
 
-# Serve only the public/ directory; Caddy forwards /api/contact here.
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+# Serve via router so /api/contact (with or without .php) maps to the mailer.
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public", "public/router.php"]
