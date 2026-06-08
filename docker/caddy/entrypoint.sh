@@ -55,12 +55,22 @@ cat <<EOF >>/etc/caddy/Caddyfile
 
 https://${PORTFOLIO_ROOT} {
     encode gzip
-    reverse_proxy portfolio:3001
+    handle /api/contact* {
+        reverse_proxy portfolio-mailer:8080
+    }
+    handle {
+        reverse_proxy portfolio:3001
+    }
 }
 
 https://www.${PORTFOLIO_ROOT} {
     encode gzip
-    reverse_proxy portfolio:3001
+    handle /api/contact* {
+        reverse_proxy portfolio-mailer:8080
+    }
+    handle {
+        reverse_proxy portfolio:3001
+    }
 }
 EOF
 fi

@@ -99,6 +99,26 @@ services:
     networks:
       - internal
 
+  portfolio-mailer:
+    profiles:
+      - prod
+    build:
+      context: ./portfolio-mailer
+      dockerfile: Dockerfile
+    environment:
+      CONTACT_SMTP_HOST: ${CONTACT_SMTP_HOST:-smtp.gmail.com}
+      CONTACT_SMTP_PORT: ${CONTACT_SMTP_PORT:-587}
+      CONTACT_SMTP_USER: ${CONTACT_SMTP_USER}
+      CONTACT_SMTP_PASS: ${CONTACT_SMTP_PASS}
+      CONTACT_FROM: ${CONTACT_FROM:-${CONTACT_SMTP_USER}}
+      CONTACT_TO: ${CONTACT_TO:-${CONTACT_SMTP_USER}}
+      CONTACT_ALLOWED_ORIGINS: ${CONTACT_ALLOWED_ORIGINS}
+    expose:
+      - "8080"
+    restart: unless-stopped
+    networks:
+      - internal
+
   elpololoco:
     profiles:
       - prod
