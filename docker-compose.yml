@@ -57,8 +57,10 @@ services:
       - internal
 
   n8n:
-    # Stabiles Release (regelmäßig prüfen unter https://github.com/n8n-io/n8n/releases)
-    image: n8nio/n8n:2.15.1
+    # Default: latest — jeder up/`make update-n8n` zieht das neueste Release.
+    # Achtung: kann breaking Changes bringen (Releases: https://github.com/n8n-io/n8n/releases).
+    # Für einen festen Pin N8N_IMAGE=n8nio/n8n:<version> setzen (z. B. in .env).
+    image: ${N8N_IMAGE:-n8nio/n8n:latest}
     profiles:
       - n8n
     environment:

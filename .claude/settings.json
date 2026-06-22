@@ -20,7 +20,26 @@
       "Bash(curl -sI --resolve waldemar-chorow.de:80:127.0.0.1 http://waldemar-chorow.de)",
       "Bash(curl -sI --resolve chorai.de:80:127.0.0.1 http://chorai.de)",
       "Read(//run/systemd/resolve/**)",
-      "Bash(getent hosts *)"
+      "Bash(getent hosts *)",
+      "Bash(git fetch *)",
+      "Bash(git submodule *)",
+      "Bash(make update-n8n *)",
+      "Bash(npm outdated *)",
+      "Bash(sudo apt-get update -qq)",
+      "Bash(apt list *)",
+      "Bash(apt-get -s -o Dir::Etc::SourceList=/dev/null upgrade)",
+      "Read(//run/**)",
+      "Bash(sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq)",
+      "Bash(sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y)",
+      "Bash(docker --version)",
+      "Bash(echo \"Docker nach Upgrade: $\\(docker --version\\)\")",
+      "Bash(sudo shutdown -r +0 \"Wartung: Kernel-Update aktivieren\")",
+      "Bash(sudo reboot)",
+      "Bash(curl -sS -o /dev/null -w \"chorai.de: HTTP %{http_code}\\\\n\" -H \"Host: chorai.de\" http://localhost/)",
+      "Bash(curl -sS -o /dev/null -w \"waldemar-chorow.de: HTTP %{http_code}\\\\n\" -H \"Host: waldemar-chorow.de\" http://localhost/)",
+      "Bash(curl -sSk -o /dev/null -w \"chorai.de HTTPS: HTTP %{http_code}\\\\n\" -H \"Host: chorai.de\" https://localhost/)",
+      "Bash(curl -sSk -o /dev/null -w \"chorai.de /api/health: HTTP %{http_code}\\\\n\" -H \"Host: chorai.de\" https://localhost/api/health)",
+      "Bash(curl -sSk -o /dev/null -w \"waldemar-chorow.de HTTPS: HTTP %{http_code}\\\\n\" -H \"Host: waldemar-chorow.de\" https://localhost/)"
     ]
   }
 }
