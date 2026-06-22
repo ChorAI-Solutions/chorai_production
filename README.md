@@ -1,3 +1,8 @@
+Production infrastructure for the ChorAI portfolio — 
+self-hosted on a private server using the same battle-tested 
+stack deployed for clients: Next.js App Router, Supabase (self-hosted), 
+n8n automation, Docker Compose, and Caddy with automatic TLS.
+
 ## Projekt-Template – Next.js + Prisma + Supabase + n8n
 
 Dieses Repo liefert eine einsatzbereite Stack-Vorlage:
