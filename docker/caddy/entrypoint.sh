@@ -122,6 +122,9 @@ cat <<EOF >>/etc/caddy/Caddyfile
 
 https://${SUPABASE_DOMAIN} {
     encode gzip
+    handle /mcp* {
+        respond 403
+    }
     reverse_proxy ${SUPABASE_KONG_HOST}:${SUPABASE_KONG_PORT}
 }
 EOF

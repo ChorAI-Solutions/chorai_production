@@ -12,3 +12,5 @@ portfolio-app
 elpololoco
 pokedex
 backups
+*.bak
+*.bak-*
