@@ -9,6 +9,7 @@ REPO_DIR="/var/www/Production"
 SERVER_NAME=$(hostname)
 
 mkdir -p "${LOGDIR}"
+chmod 700 "${LOGDIR}"
 
 TELEGRAM_BOT_TOKEN=""
 TELEGRAM_CHAT_ID=""

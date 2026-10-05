@@ -9,6 +9,7 @@ REPO_DIR="/var/www/Production"
 SERVER_NAME=$(hostname)
 
 mkdir -p "${LOGDIR}" "${BACKUP_DIR}"
+chmod 700 "${LOGDIR}" "${BACKUP_DIR}"
 
 TELEGRAM_BOT_TOKEN=""
 TELEGRAM_CHAT_ID=""
@@ -39,9 +40,19 @@ log "  n8n Image: ${N8N_IMAGE_BEFORE}"
 log "  Backup-Ort: ${BACKUP_FILE}"
 
 log "Erstelle Backup..."
-docker compose exec -T n8n tar czf - /home/node/.n8n > "${BACKUP_FILE}" 2>/dev/null || {
-  log "⚠️ Backup-Erstellung hatte Probleme"
+docker compose exec -T n8n tar czf - /home/node/.n8n > "${BACKUP_FILE}" 2>&1 || {
+  log "❌ Backup-Erstellung FAILED"
+  send_telegram "🔴 [${SERVER_NAME}] ❌ FEHLER: n8n Backup gescheitert - Update abgebrochen"
+  exit 1
 }
+
+# Verifiziere Backup
+if [[ ! -f "${BACKUP_FILE}" ]] || [[ ! -s "${BACKUP_FILE}" ]]; then
+  log "❌ Backup-Datei ist leer oder fehlend"
+  send_telegram "🔴 [${SERVER_NAME}] ❌ FEHLER: n8n Backup ungültig - Update abgebrochen"
+  exit 1
+fi
+
 BACKUP_SIZE=$(du -h "${BACKUP_FILE}" 2>/dev/null | awk '{print $1}')
 log "✅ Backup erstellt: ${BACKUP_SIZE}"
 
