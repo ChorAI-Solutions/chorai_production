@@ -43,9 +43,13 @@ log "  Kernel: ${KERNEL_BEFORE}"
 UPGRADABLE_COUNT=$(apt list --upgradable 2>/dev/null | tail -n +2 | wc -l)
 PACKAGES_LIST=$(apt list --upgradable 2>/dev/null | tail -n +2 | cut -d'/' -f1 | head -10)
 
+log "Fixing broken dpkg state..."
+DEBIAN_FRONTEND=noninteractive dpkg --configure -a >> "${LOGFILE}" 2>&1 || log "⚠️ dpkg --configure -a hatte Fehler (nicht kritisch)"
+DEBIAN_FRONTEND=noninteractive apt-get install -f -y >> "${LOGFILE}" 2>&1 || log "⚠️ apt-get install -f hatte Fehler (nicht kritisch)"
+
 log "Running apt update && apt upgrade..."
 apt-get update -y >> "${LOGFILE}" 2>&1
-DEBIAN_FRONTEND=noninteractive apt-get upgrade -y >> "${LOGFILE}" 2>&1 || {
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o DPkg::ConfigurePending=true >> "${LOGFILE}" 2>&1 || {
   log "❌ apt upgrade FAILED"
   send_telegram "🔴 [${SERVER_NAME}] ❌ FEHLER: Linux-Update gescheitert"
   exit 1
