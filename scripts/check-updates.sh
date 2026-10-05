@@ -78,7 +78,7 @@ docker compose --profile prod up -d --build >> "${LOGFILE}" 2>&1 || {
 sleep 5
 
 RUNNING_SERVICES=$(docker compose ps --format json 2>/dev/null | grep -c '"State":"running"' || echo "0")
-TOTAL_SERVICES=$(docker compose ps --format json 2>/dev/null | jq length)
+TOTAL_SERVICES=$(docker compose ps --format json 2>/dev/null | grep -c '"' || docker compose ps 2>/dev/null | wc -l)
 
 log "✅ UPDATE ERFOLGREICH"
 log "Services: ${RUNNING_SERVICES}/${TOTAL_SERVICES} running"
