@@ -8,9 +8,15 @@ Dockerfile
 npm-debug.log
 .env
 .env.*
+.env.bak*
+*.bak
+*.bak-*
 portfolio-app
 elpololoco
 pokedex
 backups
-*.bak
-*.bak-*
+.claude
+.cursor
+.DS_Store
+.gitignore
+.gitmodules
